@@ -3,55 +3,55 @@
         {
             "title": "Connect",
             "link": "https%3A%2F%2Fonline.daugherty.com%2F",
-            "image": "",
+            "image": "/images/sharepoint.png",
             "order": 10
         },
         {
             "title": "Slack",
             "link": "https%3A%2F%2Fdaughertyone.slack.com",
-            "image": "",
+            "image": "/images/slack.png",
             "order": 20
         },
         {
             "title": "Trello",
             "link": "https%3A%2F%2Ftrello.com",
-            "image": "",
+            "image": "/images/trello.png",
             "order": 30
         },
         {
             "title": "Timesheet",
             "link": "https%3A%2F%2Fmytimesheet.daugherty.com%2Faction%2Fhome",
-            "image": "",
+            "image": "/images/unanet.png",
             "order": 40
         },
         {
             "title": "Email",
             "link": "https%3A%2F%2Fmail.daugherty.com%2Fowa%2F",
-            "image": "",
+            "image": "/images/outlook.png",
             "order": 50
         },
         {
             "title": "Paycheck Stub",
             "link": "https%3A%2F%2Fworkforcenow.adp.com%2F",
-            "image": "",
+            "image": "/images/adp.png",
             "order": 60
         },
         {
             "title": "Health Insurance",
             "link": "https%3A%2F%2Fwww.anthem.com%2F",
-            "image": "",
+            "image": "/images/anthem_bcbs.png",
             "order": 70
         },
         {
             "title": "Dental Insurance",
             "link": "https%3A%2F%2Fwww.dha.com%2F",
-            "image": "",
+            "image": "/images/dental_health.png",
             "order": 80
         },
         {
             "title": "401k",
             "link": "https%3A%2F%2Fwww.principal.com%2F",
-            "image": "",
+            "image": "/images/principal.png",
             "order": 90
         }
         
