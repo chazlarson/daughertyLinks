@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getRequestToken, pocketAuth } from './services/pocketServices';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getDaughertyLinks } from './actions/daugherty-links.actions';
+
+function mapStateToProps(state) {
+  return {...state};
+}
+
+function mapDispatchToProps(dispatch) {
+  return { getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch) };
+}
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.signIn = this.signIn.bind(this);
+  componentWillMount(){
+    this.props.getDaughertyLinks();
   }
 
-  signIn() {
-    const setState = this.setState.bind(this);
-    getRequestToken()
-      .then(res => res.json())
-      .then(res => {
-        console.log(res.code);
-        setState({'code' : res.code});
-        window.open(pocketAuth(res.code))
-      })
-      .catch(e => console.log(e));
-  }
   render() {
+    const links = this.props.daughertyLinks.items.map(item => {
+      return (
+        <div key={item.id}>
+          {item.title}
+        </div>
+      )
+    });
+
     return (
       <div className="App">
+
       <button onClick={this.signIn}>sign in</button>
+
+      hi -- doug is awesome
+      {links}
       </div>
     );
   }
 }
-
-mapDispatchToProps = function()
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
