@@ -24,7 +24,7 @@ export function getRequestToken() {
   return enableCors(options);
 }
 
-export function pocketAuth(request_token) {
+export function pocketReroute(request_token) {
   return `https://getpocket.com/auth/authorize?request_token=${request_token}&redirect_uri=${redirect_uri}`
 }
 

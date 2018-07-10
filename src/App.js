@@ -3,6 +3,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
+import PocketAuth  from './components/PocketAuth';
 
 function mapStateToProps(state) {
   return {...state};
@@ -29,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
 
-      <button onClick={this.signIn}>sign in</button>
+      <PocketAuth/>
 
       hi -- doug is awesome
       {links}
