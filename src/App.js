@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     const links = this.props.daughertyLinks.items.map(item => {
       return (
-        <div>
+        <div key={item.id}>
           {item.title}
         </div>
       )
