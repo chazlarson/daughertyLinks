@@ -55,9 +55,13 @@ export function getPocketRequest() {
         dispatch(pocketRequestLoading(true));
 
         pocketServices.getRequestToken()
-        .then(res => res.json())
         .then(res => {
-          console.log('Request token: ' + res.code);
+            if(!res.ok) {
+                throw(res.statusText())
+            }
+            return res.json();
+        })
+        .then(res => {
           dispatch(pocketRequestSuccess(res.code))
           var win = window.open(pocketServices.pocketReroute(res.code, 'http://localhost:3000/close.html') , "SignIn", "");
           var pollTimer = window.setInterval(function() {
@@ -81,9 +85,13 @@ export function getPocketAccessToken(requestToken) {
         dispatch(pocketAccessLoading(true));
 
         pocketServices.getPocketAccessToken(requestToken)
-        .then(res => res.json())
         .then(res => {
-          console.log('Acess token: ' + res.access_token);
+            if(!res.ok) {
+                throw(res.statusText())
+            }
+            return res.json();
+        })
+        .then(res => {
           dispatch(pocketAccessSuccess(res.access_token))
         })
         .catch(e => {
