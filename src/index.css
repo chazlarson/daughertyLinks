@@ -9,7 +9,7 @@ div.right-col {
   padding: 20px;
   margin: 5px;
   min-height: 300px;
-  
+  width: 75%;
 }
 
 div.left-col {
@@ -17,4 +17,30 @@ div.left-col {
   padding: 20px;
   margin: 5px;
   min-height: 300px;
+}
+
+div.link-container {
+  background-color: white;
+  margin: 10px;
+  padding: 20px;
+  font-size: 15px;
+  width: 225px;
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-size: 75%;
+}
+
+div.link-title {
+  padding-top: 100px;
+}
+
+div.link-container:hover {
+  background-color: #e4f3c7;
+}
+
+
+.box-shadow {
+  -webkit-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);
+  -moz-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);
+  box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);
 }
