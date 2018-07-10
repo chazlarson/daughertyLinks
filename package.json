@@ -5,6 +5,7 @@
   "dependencies": {
     "ajv": "^6.5.2",
     "bootstrap": "^4.1.1",
+    "dotenv": "^6.0.0",
     "enzyme": "^3.3.0",
     "jquery": "^1.9.1",
     "popper.js": "^1.14.3",
