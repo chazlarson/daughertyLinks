@@ -6,7 +6,9 @@ import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
 
 function mapStateToProps(state) {
-  return {...state};
+  return {
+    links: [...state.daughertyLinks.items]
+  };
 }
 
 function mapDispatchToProps(dispatch) {

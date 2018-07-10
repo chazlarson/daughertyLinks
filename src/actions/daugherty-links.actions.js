@@ -32,11 +32,24 @@ export function getDaughertyLinks() {
         dispatch(daughertyLinksAreLoading(true));
 
         daughertyLinksService.getDaughertyLinks()
+            .then(function(response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
             .then(resp => {
                 dispatch(daughertyLinksAreLoading(false));
                 return resp.json()
             })
-            .then((response) => dispatch(daughertyLinksFetchDataSuccess(response.items.sort((a, b) => a.order - b.order).map(item => new link({...item, tags : ['Static']})))))
+            .then((response) => 
+                dispatch(
+                    daughertyLinksFetchDataSuccess(
+                        response.items.sort((a, b) => a.order - b.order)
+                        .map(item => new link({...item, tags : ['Daugherty']}))
+                    )
+                )
+            )
             .catch((err) => dispatch(daughertyLinksHaveError(err)));
     };
 }
