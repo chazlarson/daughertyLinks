@@ -7,6 +7,6 @@ export default class link{
         this.image = image;
         this.order = order;
         this.tags = tags;
-        this.id = `ID_${++lastId}`;
+        this.id = `LinkID_${++lastId}`;
     }
 }
