@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
-import { getRequestToken, pocketReroute } from '../services/pocketServices';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getPocketRequest } from '../actions/pocket-auth.actions';
+
+
+
+function mapStateToProps(state) {
+  return {
+    reqToken: state.pocketAuth.reqToken
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { getPocketRequest: bindActionCreators(getPocketRequest, dispatch) };
+}
 
 class PocketAuth extends Component {
     constructor(props) {
@@ -7,19 +21,7 @@ class PocketAuth extends Component {
         this.signIn = this.signIn.bind(this);
     }
     signIn() {
-      getRequestToken()
-        .then(res => res.json())
-        .then(res => {
-          console.log(res.code);
-          var win = window.open(pocketReroute(res.code) , "SignIn", "");
-          var pollTimer = window.setInterval(function() {
-            if (win.closed !== false) {
-              alert('dialog closed');
-              window.clearInterval(pollTimer);
-            }
-          }, 200);
-        })
-        .catch(e => console.log(e));
+      this.props.getPocketRequest();
     }
     render() {
         return (
@@ -27,4 +29,4 @@ class PocketAuth extends Component {
   }
 }
 
-  export default PocketAuth
+  export default connect(mapStateToProps, mapDispatchToProps)(PocketAuth)
