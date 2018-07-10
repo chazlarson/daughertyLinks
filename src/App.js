@@ -28,7 +28,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Wrapper links={this.props.links} tabs={this.props.tabs} updateSelectedTab={this.props.updateSelectedTab}/>
+        <Wrapper links={this.props.links} 
+                 tabs={this.props.tabs} 
+                 updateSelectedTab={this.props.updateSelectedTab} />
       </div>
     );
   }

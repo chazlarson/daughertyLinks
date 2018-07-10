@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-
-
 class Links extends Component {
     render () {
         let linksArray = this.props.links.map(

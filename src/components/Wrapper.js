@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Tabs from './Tabs';
 import Links from './Links';
 
-class wrapper extends Component {
+class Wrapper extends Component {
     render() {
         return (
             <div className="container">
@@ -14,7 +14,7 @@ class wrapper extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-2 justify-content-md-center left-col rounded">
-                        <Tabs />
+                        <Tabs links={this.props.links} />
                     </div>
                     <div className="col-lg-9 right-col rounded">
                         <Links links={this.props.links} />
@@ -25,4 +25,4 @@ class wrapper extends Component {
     }
 }
 
-export default wrapper;
+export default Wrapper;
