@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import Wrapper from './components/Wrapper.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
 import PocketAuth  from './components/PocketAuth';
 
 function mapStateToProps(state) {
-  return {...state};
+  return {
+    links: [...state.daughertyLinks.items]
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -19,24 +22,13 @@ class App extends Component {
   }
 
   render() {
-    const links = this.props.daughertyLinks.items.map(item => {
-      return (
-        <div key={item.id}>
-          {item.title}
-        </div>
-      )
-    });
-
     return (
       <div className="App">
-
-      <PocketAuth/>
-
-      hi -- doug is awesome
-      {links}
-      </div>
+        <PocketAuth/>
+        <Wrapper />
+      </div>  
     );
   }
-}
+} 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
