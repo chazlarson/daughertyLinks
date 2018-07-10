@@ -7,7 +7,8 @@ import { getDaughertyLinks } from './actions/daugherty-links.actions';
 
 function mapStateToProps(state) {
   return {
-    links: [...state.daughertyLinks.items]
+    links: [...state.daughertyLinks.items],
+    tabs: {...state.tabs}
   };
 }
 
