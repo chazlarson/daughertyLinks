@@ -4,6 +4,7 @@ import Wrapper from './components/Wrapper.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
+import { updateSelectedTab } from './actions/tabs.action';
 
 function mapStateToProps(state) {
   return {
@@ -13,7 +14,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch) };
+  return { 
+    getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch),
+    updateSelectedTab:  bindActionCreators(updateSelectedTab, dispatch)
+  };
 }
 
 class App extends Component {
