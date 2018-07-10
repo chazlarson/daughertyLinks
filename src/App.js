@@ -4,16 +4,20 @@ import Wrapper from './components/Wrapper.js';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
-import PocketAuth  from './components/PocketAuth';
+import { updateSelectedTab } from './actions/tabs.action';
 
 function mapStateToProps(state) {
   return {
-    links: [...state.daughertyLinks.items]
+    links: [...state.daughertyLinks.items],
+    tabs: {...state.tabs}
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch) };
+  return { 
+    getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch),
+    updateSelectedTab:  bindActionCreators(updateSelectedTab, dispatch)
+  };
 }
 
 class App extends Component {
@@ -24,8 +28,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Wrapper />
-      </div>  
+        <Wrapper links={this.props.links} tabs={this.props.tabs} updateSelectedTab={this.props.updateSelectedTab}/>
+      </div>
     );
   }
 } 
