@@ -1,5 +1,6 @@
 import * as pocketServices from '../services/pocket.service';
 import link from '../models/link';
+import { filterFiles} from '../helpers/file-extension.helper';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -153,13 +154,18 @@ function mapLinks(links) {
     if(links.list){
         return Object.values(links.list).map((linkData) => {
             return new link({
-                link: linkData.resolved_url,
-                title: linkData.resolved_title,
-                image: (linkData.image && linkData.image.src) || '',
+                link: linkData.resolved_url || linkData.given_url,
+                title: linkData.resolved_title || linkData.given_title,
+                image: (linkData.images && filterFiles(mapImages(linkData.images))) || linkData.top_image_url || '',
                 order: linkData.sort_id,
                 tags: Object.keys(linkData.tags).filter(tag => tag !== 'daugherty'),
             })
         })
     }
     return mappedLinks;
+}
+
+function mapImages(images) {
+    console.log(Object.values(images).map(img => img.src));
+    return Object.values(images).map(img => img.src);
 }
