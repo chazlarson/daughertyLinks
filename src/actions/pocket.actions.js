@@ -157,7 +157,7 @@ function mapLinks(links) {
                 title: linkData.resolved_title,
                 image: (linkData.image && linkData.image.src) || '',
                 order: linkData.sort_id,
-                tags: Object.keys(linkData.tags),
+                tags: Object.keys(linkData.tags).filter(tag => tag !== 'daugherty'),
             })
         })
     }
