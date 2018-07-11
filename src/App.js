@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
 import { updateSelectedTab } from './actions/tabs.action';
+import PocketAuth from './components/Pocket'
 
 function mapStateToProps(state) {
   return {
@@ -29,6 +30,7 @@ class App extends Component {
     return (
       <div className="App">
         <Wrapper links={this.props.links} tabs={this.props.tabs} updateSelectedTab={this.props.updateSelectedTab}/>
+        <PocketAuth/>
       </div>
     );
   }

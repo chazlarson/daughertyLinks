@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPocketRequest } from '../actions/pocket-auth.actions';
+import { getPocketRequest } from '../actions/pocket.actions';
 
 
 
