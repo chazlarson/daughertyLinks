@@ -86,7 +86,6 @@ export function getPocketRequest() {
     return (dispatch) => {
         dispatch(pocketRequestLoading(true));
         dispatch(updateStatusMessage(loadingMessage));
-
         pocketServices.getRequestToken()
         .then(res => {
             if(!res.ok) {
@@ -122,6 +121,8 @@ export function getPocketAccessToken(requestToken) {
             return res.json();
         })
         .then(res => {
+            
+        //   localStorage.setItem('pocketAccessToken', res.access_token);
           dispatch(pocketAccessSuccess(res.access_token))
           dispatch(getPocketLinks(res.access_token));
         })
