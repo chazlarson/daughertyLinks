@@ -1,6 +1,7 @@
 import * as pocketServices from '../services/pocket.service';
 import link from '../models/link';
 import { filterFiles} from '../helpers/file-extension.helper';
+import { updateStatusMessage } from './tabs.action';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -13,6 +14,9 @@ export const POCKET_ACCESS_TOKEN_SUCCESS ='POCKET_ACCESS_TOKEN_SUCCESS';
 export const POCKET_GET_LINKS_LOADING ='POCKET_GET_LINKS_LOADING';
 export const POCKET_GET_LINKS_ERROR='POCKET_GET_LINKS_ERROR';
 export const POCKET_GET_LINKS_SUCCESS ='POCKET_GET_LINKS_SUCCESS';
+
+const loadingMessage = 'Loading, just a couple seconds please!';
+const finishedLoading = '';
 
 export function pocketRequestError(err) {
     return {
@@ -81,6 +85,7 @@ export function pocketGetLinksSuccess(code) {
 export function getPocketRequest() {
     return (dispatch) => {
         dispatch(pocketRequestLoading(true));
+        dispatch(updateStatusMessage(loadingMessage));
 
         pocketServices.getRequestToken()
         .then(res => {
@@ -108,7 +113,7 @@ export function getPocketRequest() {
 export function getPocketAccessToken(requestToken) {
     return (dispatch) => {
         dispatch(pocketAccessLoading(true));
-
+        dispatch(updateStatusMessage(loadingMessage));
         pocketServices.getPocketAccessToken(requestToken)
         .then(res => {
             if(!res.ok) {
@@ -129,7 +134,7 @@ export function getPocketAccessToken(requestToken) {
 export function getPocketLinks(accessToken) {
     return (dispatch) => {
         dispatch(pocketGetLinksLoading(true));
-
+        dispatch(updateStatusMessage(loadingMessage));
         pocketServices.getPocketLinks(accessToken)
         .then(res => {
             if(!res.ok) {
@@ -145,6 +150,7 @@ export function getPocketLinks(accessToken) {
           console.log(e);})
         .finally(() => {
           dispatch(pocketGetLinksLoading(false));
+          dispatch(updateStatusMessage(finishedLoading));
         }); 
     };
 }
