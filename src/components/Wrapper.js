@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tabs from './Tabs';
 import Links from './Links';
+import Login from './Login';
 
 class Wrapper extends Component {
     render() {
@@ -9,7 +10,7 @@ class Wrapper extends Component {
                 <div className="header-container clearfix">
                     <h1 className="app-title">Daugherty Links</h1>
                     <div className="float-right navbar clearfix">
-                        <button className="btn btn-primary">Login</button>
+                        <Login />
                     </div>
                 </div>
                 <div className="row">

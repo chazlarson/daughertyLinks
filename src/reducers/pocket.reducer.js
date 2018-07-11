@@ -8,7 +8,7 @@ const defaultState = {
     pocketLinks: []
 };
 
-const pocketAuthReducer = (state = defaultState, action) => {
+const pocketReducer = (state = defaultState, action) => {
     switch (action.type){
         case pocketActions.POCKET_REQUEST_TOKEN_LOADING:{
             state = {...state, isLoading: action.payload, error: null};
@@ -53,4 +53,4 @@ const pocketAuthReducer = (state = defaultState, action) => {
     return state;
 }
 
-export default pocketAuthReducer;
+export default pocketReducer;

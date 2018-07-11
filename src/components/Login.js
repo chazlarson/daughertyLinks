@@ -7,7 +7,7 @@ import { getPocketRequest } from '../actions/pocket.actions';
 
 function mapStateToProps(state) {
   return {
-    reqToken: state.pocketAuth.reqToken
+    reqToken: state.pocket.reqToken
   };
 }
 
@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch) {
   return { getPocketRequest: bindActionCreators(getPocketRequest, dispatch) };
 }
 
-class PocketAuth extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.signIn = this.signIn.bind(this);
@@ -25,8 +25,8 @@ class PocketAuth extends Component {
     }
     render() {
         return (
-          <button onClick={this.signIn} >Sign in</button>);
+          <button className="btn btn-primary" onClick={this.signIn} >Login</button>);
   }
 }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(PocketAuth)
+  export default connect(mapStateToProps, mapDispatchToProps)(Login)
