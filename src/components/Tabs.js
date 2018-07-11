@@ -16,7 +16,8 @@ class Tabs extends Component {
                 return (
                     <div>
                         <Tab displayText={tab} 
-                             updateSelectedTab={this.props.updateSelectedTab} />
+                             updateSelectedTab={this.props.updateSelectedTab} 
+                             isActive={(tab === this.props.tabs.selectedTab)} />
                     </div>
                 );
             }

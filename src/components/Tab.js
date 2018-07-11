@@ -9,7 +9,7 @@ class Tab extends Component {
 
     render () {
         return(
-           <div onClick={this.onClickHandle.bind(this)}>
+           <div className={`tab box-shadow rounded ${this.props.isActive ? " active" : "" }`} onClick={this.onClickHandle.bind(this)}>
                 {this.props.displayText}
            </div>
         );
