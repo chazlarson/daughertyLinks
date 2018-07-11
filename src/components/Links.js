@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 
 class Links extends Component {
+    substituteTitle (title) {
+        let linkURL = title;
+
+        const linkArray = linkURL.split('/')
+
+        return (linkArray[2]);
+    }
+
     render () {
+        
         let linkId = 0;
         const activeTab = this.props.tabs.selectedTab;
         // if selectedTab in link.tag
@@ -18,7 +27,7 @@ class Links extends Component {
                         style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
                         <a href={decodeURIComponent(link.link)} target="_blank" >
                             <div className="link-title">
-                                {link.title}
+                                {link.title.length === 0 ? this.substituteTitle(link.link) : link.title } 
                             </div>
                         </a>
                     </div>
