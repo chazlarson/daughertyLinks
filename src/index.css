@@ -34,10 +34,21 @@ div.link-title {
   padding-top: 100px;
 }
 
-div.link-container:hover {
+div.link-container:hover, .tab:hover {
   background-color: #e4f3c7;
 }
 
+.tab {
+  background-color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.active {
+  border: 5px solid red;
+}
 
 .box-shadow {
   -webkit-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);
