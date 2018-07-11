@@ -6,11 +6,13 @@ class Tabs extends Component {
 
         let tabsArray = [];
         this.props.links.forEach(element => {
+            if (element.tags.length === 0) {
+                tabsArray = tabsArray.concat('Uncategorized');
+            }
             tabsArray = tabsArray.concat(element.tags);
         });
         
         tabsArray = [...new Set(tabsArray)];
-        tabsArray.push('TestThis');
         const allTabs = tabsArray.map(
             tab => {
                 return (

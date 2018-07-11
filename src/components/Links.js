@@ -5,7 +5,9 @@ class Links extends Component {
         const activeTab = this.props.tabs.selectedTab;
         // if selectedTab in link.tag
         let selectedLinks = this.props.links.filter(link => {
-            return link.tags.indexOf(activeTab)>-1;
+            return (activeTab === 'Uncategorized' && link.tags.length === 0 
+                ? true
+                : link.tags.indexOf(activeTab)>-1);
         })
         let linksArray = selectedLinks.map(
             link => {
