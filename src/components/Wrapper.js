@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Tabs from './Tabs';
 import Links from './Links';
 import Login from './Login';
+import StatusBar from '../components/statusbar';
 
 class Wrapper extends Component {
     render() {
@@ -23,6 +24,9 @@ class Wrapper extends Component {
                         <Links links={this.props.links} 
                                tabs={this.props.tabs} />
                     </div>
+                </div>
+                <div>
+                    <StatusBar message={this.props.tabs.statusMessage}/>
                 </div>
             </div>
         );
