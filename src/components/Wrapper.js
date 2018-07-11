@@ -14,10 +14,13 @@ class Wrapper extends Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-2 justify-content-md-center left-col rounded">
-                        <Tabs links={this.props.links} />
+                        <Tabs links={this.props.links}
+                              tabs={this.props.tabs}
+                              updateSelectedTab={this.props.updateSelectedTab} />
                     </div>
                     <div className="col-lg-9 right-col rounded">
-                        <Links links={this.props.links} />
+                        <Links links={this.props.links} 
+                               tabs={this.props.tabs} />
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ const defaultState = {
 const tabsReducer = (state = defaultState, action) => {
     switch (action.type){
         case tabsActions.TAB_HAS_CHANGED:{
+            console.log('Selected Tab Changed: ', action.payload);
             state = {...state, selectedTab: action.payload}
             break;
         }

@@ -5,20 +5,26 @@ class Tabs extends Component {
     render() {
 
         let tabsArray = [];
-        this.props.links.map(
-            link => {
-                tabsArray = tabsArray.concat(link.tags);
-            }
-        )
-        const tabs = tabsArray.map(
+        this.props.links.forEach(element => {
+            tabsArray = tabsArray.concat(element.tags);
+        });
+        
+        tabsArray = [...new Set(tabsArray)];
+        tabsArray.push('TestThis');
+        const allTabs = tabsArray.map(
             tab => {
                 return (
-                    <Tab displayText={tab.tags} />
+                    <div>
+                        <Tab displayText={tab} 
+                             updateSelectedTab={this.props.updateSelectedTab} />
+                    </div>
                 );
             }
         );
         return (
-            'Is this working?'
+            <div>
+                {allTabs}
+            </div>
         );
     }   
 }
