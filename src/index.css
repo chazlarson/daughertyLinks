@@ -52,6 +52,10 @@ div.link-title {
   padding: 3px !important;
 }
 
+.nav-link{
+  text-transform: uppercase !important;
+}
+
 div.link-container:hover, .tab:hover {
   background-color: #e4f3c7;
 }
