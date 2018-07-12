@@ -4,7 +4,7 @@ const defaultState = {
     isLoading: false,
     error: null,
     reqToken: {},
-    accessToken: {},
+    accessToken: '',
     pocketLinks: []
 };
 
