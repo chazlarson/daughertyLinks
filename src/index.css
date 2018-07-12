@@ -42,6 +42,16 @@ div.link-title {
   padding-top: 100px;
 }
 
+.card .card-footer{
+  background-color:rgba(0, 0, 0, 0.5);
+  color: #fff;
+  margin: 0 !important;
+  text-align: center !important;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px !important;
+}
+
 div.link-container:hover, .tab:hover {
   background-color: #e4f3c7;
 }
