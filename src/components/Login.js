@@ -8,7 +8,7 @@ import { getPocketRequest, getPocketLinks, pocketAccessSuccess, removePocketData
 function mapStateToProps(state) {
   return {
     reqToken: state.pocket.reqToken,
-    accessToken: state.pocket.accessToken
+    accessToken: state.pocket.accessToken,
   };
 }
 
@@ -61,11 +61,11 @@ class Login extends Component {
     render() {
         return (
           <div>
-          { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
-            <button className="btn btn-primary-danger" onClick={this.signOut} >Logout</button> :
-            <button className="btn btn-primary" onClick={this.signIn} >Login</button>
-          }
-        </div> )
+            { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
+              <button className="btn btn-primary-danger" onClick={this.signOut} >Logout</button> :
+              <button className="btn btn-primary" onClick={this.signIn} >Login</button>
+            }
+          </div>)
   }
 }
 

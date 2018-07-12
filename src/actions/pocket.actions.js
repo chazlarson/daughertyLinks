@@ -45,10 +45,10 @@ export function pocketRequestSuccess(code) {
     };
 }
 
-export function pocketAccessError(err) {
+export function pocketAccessError(error) {
     return {
         type: POCKET_ACCESS_TOKEN_ERROR,
-        payload: err
+        payload: { error }
     };
 }
 
@@ -122,7 +122,8 @@ export function getPocketRequest() {
           }, 200);
         })
         .catch(e => {
-          dispatch(pocketRequestError(e))
+          dispatch(pocketGetLinksLoading(false));
+          dispatch(pocketRequestError(e));
           console.log(e);});
     };
 }
@@ -139,13 +140,13 @@ export function getPocketAccessToken(requestToken) {
             return res.json();
         })
         .then(res => {
-            
-        //   localStorage.setItem('pocketAccessToken', res.access_token);
-          dispatch(pocketAccessSuccess(res.access_token))
+          dispatch(pocketAccessSuccess(res.access_token));
           dispatch(getPocketLinks(res.access_token));
         })
         .catch(e => {
-          dispatch(pocketAccessError(e))
+          dispatch(updateStatusMessage(finishedLoading));
+          dispatch(pocketGetLinksLoading(false));
+          dispatch(pocketAccessError(e));
           console.log(e);});
     };
 }
