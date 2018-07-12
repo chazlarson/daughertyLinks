@@ -3,6 +3,7 @@ import link from '../models/link';
 import { filterFiles} from '../helpers/file-extension.helper';
 import { updateStatusMessage } from './tabs.action';
 import {UPDATE_LINKS} from '../reducers';
+import { updateSelectedTab } from './tabs.action';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -20,6 +21,8 @@ export const REMOVE_POCKET_DATA='REMOVE_POCKET_DATA';
 
 const loadingMessage = 'Loading, just a couple seconds please!';
 const finishedLoading = '';
+const defaultTab = 'Daugherty';
+
 
 export function pocketRequestError(err) {
     return {
@@ -87,7 +90,8 @@ export function pocketGetLinksSuccess(code) {
 
 export function removePocketData() {
     return (dispatch) => {
-        dispatch({type: REMOVE_POCKET_DATA})
+        dispatch(updateSelectedTab(defaultTab));
+        dispatch({type: REMOVE_POCKET_DATA});
         dispatch({type: UPDATE_LINKS});
     }
 }
