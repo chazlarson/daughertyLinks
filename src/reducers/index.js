@@ -11,7 +11,6 @@ import tabsReducer from './tabs.reducer';
     tabs: tabsReducer
 })*/
 export const UPDATE_LINKS = 'UPDATE_LINKS';
-export const REMOVE_LINKS = 'REMOVE_LINKS';
 
 const reducers = reduceReducers(
     combineReducers({
@@ -27,9 +26,6 @@ const reducers = reduceReducers(
         case UPDATE_LINKS:
           const pocket = state.pocket;
           state = {...state, links: [...daughertyLinks.items, ...pocket.pocketLinks]};
-          break;
-        case REMOVE_LINKS:
-          state = {...state, links: [...daughertyLinks.items]};
           break;
         default:
           state = {...state};

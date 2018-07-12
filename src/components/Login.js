@@ -30,7 +30,7 @@ class Login extends Component {
 
     componentDidMount() {
       const accessTokenCookie = this.props.cookies.get('pocketAccessToken')
-
+      // if cookie found, and accesstoke not stored, store access token from cookie and fetch links
       if (accessTokenCookie && !this.props.accessToken) {
         // consider creating new single action creator to reduce re-renders
         this.props.pocketAccessSuccess(accessTokenCookie);
@@ -53,7 +53,7 @@ class Login extends Component {
     }
 
     signOut() {
-      // delete cookie and remove all the pocketData from redux store
+      // delete cookie and remove all pocketData from redux store
       this.props.cookies.remove('pocketAccessToken', { path: '/' });
       this.props.removePocketData();
     }

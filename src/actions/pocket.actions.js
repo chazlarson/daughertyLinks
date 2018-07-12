@@ -2,7 +2,7 @@ import * as pocketServices from '../services/pocket.service';
 import link from '../models/link';
 import { filterFiles} from '../helpers/file-extension.helper';
 import { updateStatusMessage } from './tabs.action';
-import {UPDATE_LINKS, REMOVE_LINKS} from '../reducers';
+import {UPDATE_LINKS} from '../reducers';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -87,8 +87,8 @@ export function pocketGetLinksSuccess(code) {
 
 export function removePocketData() {
     return (dispatch) => {
-        dispatch({type: REMOVE_LINKS});
         dispatch({type: REMOVE_POCKET_DATA})
+        dispatch({type: UPDATE_LINKS});
     }
 }
 
