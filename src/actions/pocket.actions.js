@@ -97,7 +97,11 @@ export function getPocketRequest() {
           dispatch(pocketRequestSuccess(res.code))
           var win = window.open(pocketServices.pocketReroute(res.code, 'http://localhost:3000/close.html') , "SignIn", "");
           var pollTimer = window.setInterval(function() {
-            if (win.closed !== false) {
+            if (!win) {
+                alert('Please turn pop-ups on!');
+                return;
+            } 
+            else if (win.closed !== false) {
               dispatch(getPocketAccessToken(res.code));
               window.clearInterval(pollTimer);
             }
