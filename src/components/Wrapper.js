@@ -11,7 +11,7 @@ class Wrapper extends Component {
                 <div className="header-container clearfix">
                     <h1 className="app-title">Daugherty Links</h1>
                     <div className="float-right navbar clearfix">
-                        <Login />
+                        <Login cookies={this.props.cookies}/>
                     </div>
                 </div>
                 <div className="row">

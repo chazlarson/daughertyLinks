@@ -7,7 +7,8 @@ import { getPocketRequest } from '../actions/pocket.actions';
 
 function mapStateToProps(state) {
   return {
-    reqToken: state.pocket.reqToken
+    reqToken: state.pocket.reqToken,
+    accessToken: state.pocket.accessToken
   };
 }
 
@@ -20,12 +21,27 @@ class Login extends Component {
         super(props);
         this.signIn = this.signIn.bind(this);
     }
+
+    componentWillReceiveProps(nextProps) {
+      // set cookie if ! cookie found, and diff accessToken
+      if((this.props.accessToken !== nextProps.accessToken) && !this.props.cookies.get('pocketAccessToken')) {
+        this.props.cookies.set('pocketAccessToken', this.props.accessToken, { path: '/' });
+      }
+    }
+
+
     signIn() {
       this.props.getPocketRequest();
     }
+
     render() {
         return (
-          <button className="btn btn-primary" onClick={this.signIn} >Login</button>);
+          <div>
+          { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
+            <button className="btn btn-primary-danger" >Do Nothing!</button> :
+            <button className="btn btn-primary" onClick={this.signIn} >Login</button>
+          }
+        </div> )
   }
 }
 

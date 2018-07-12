@@ -6,10 +6,13 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './store';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
 <Provider store={store}>
-    <App />
+    <CookiesProvider>
+        <App />
+    </CookiesProvider>
 </Provider>
 , document.getElementById('root'));
 registerServiceWorker();
