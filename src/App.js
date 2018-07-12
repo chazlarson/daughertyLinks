@@ -9,7 +9,7 @@ import { withCookies } from 'react-cookie';
 
 function mapStateToProps(state) {
   return {
-    links: [...state.daughertyLinks.items, ...state.pocket.pocketLinks],
+    links: state.links,
     tabs: {...state.tabs}
   };
 }
