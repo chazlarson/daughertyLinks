@@ -9,6 +9,7 @@ function mapStateToProps(state) {
   return {
     reqToken: state.pocket.reqToken,
     accessToken: state.pocket.accessToken,
+    popUpError: state.pocket.popUpError,
   };
 }
 
@@ -61,9 +62,19 @@ class Login extends Component {
     render() {
         return (
           <div>
+           
             { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
               <button className="btn btn-primary-danger" onClick={this.signOut} >Logout</button> :
               <button className="btn btn-primary" onClick={this.signIn} >Login</button>
+            }
+             { this.props.popUpError ? 
+                <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                  {this.props.popUpError}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div> : 
+                <div></div>
             }
           </div>)
   }
