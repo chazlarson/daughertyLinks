@@ -21,7 +21,7 @@ const daughertyLinksReducer = (state = defaultState, action) => {
             let err = action.payload;
             
             state = {...state,  error: err, isError: true}
-            console.log(err);
+            console.log("Error:", err);
             break;
         }
         default:{

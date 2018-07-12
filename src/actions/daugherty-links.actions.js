@@ -1,5 +1,6 @@
 import * as daughertyLinksService from '../services/daugherty-links';
 import link from '../models/link';
+import {UPDATE_LINKS} from '../reducers';
 
 export const DAUGHERTY_LINKS_HAVE_ERROR ='DAUGHERTY_LINKS_HAVE_ERROR';
 export const DAUGHERTY_LINKS_ARE_LOADING ='DAUGHERTY_LINKS_ARE_LOADING';
@@ -49,7 +50,9 @@ export function getDaughertyLinks() {
                         .map(item => new link({...item, tags : ['Daugherty']}))
                     )
                 )
-            )
+            ).then(resp => dispatch({
+                type: UPDATE_LINKS,
+            }))
             .catch((err) => dispatch(daughertyLinksHaveError(err)));
     };
 }

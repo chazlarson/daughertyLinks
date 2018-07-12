@@ -8,7 +8,7 @@ import { updateSelectedTab } from './actions/tabs.action';
 
 function mapStateToProps(state) {
   return {
-    links: [...state.daughertyLinks.items, ...state.pocket.pocketLinks],
+    links: state.links,
     tabs: {...state.tabs}
   };
 }

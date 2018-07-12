@@ -2,6 +2,7 @@ import * as pocketServices from '../services/pocket.service';
 import link from '../models/link';
 import { filterFiles} from '../helpers/file-extension.helper';
 import { updateStatusMessage } from './tabs.action';
+import {UPDATE_LINKS} from '../reducers';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -149,6 +150,7 @@ export function getPocketLinks(accessToken) {
         .then(res => {
           dispatch(pocketGetLinksSuccess(mapLinks(res)));
         })
+        .then(res => dispatch({type: UPDATE_LINKS}))
         .catch(e => {
           dispatch(pocketGetLinksError(e))
           console.log(e);})
