@@ -8,15 +8,17 @@ div.right-col {
   background-color: #696767;
   padding: 20px;
   margin: 5px;
-  min-height: 300px;
+  max-height: 400px;
   width: 75%;
+  overflow: scroll;
 }
 
 div.left-col {
   background-color: #696767;
   padding: 20px;
   margin: 5px;
-  min-height: 300px;
+  max-height: 400px;
+  overflow: scroll;
 }
 
 div.link-container {
