@@ -46,6 +46,10 @@ const pocketReducer = (state = defaultState, action) => {
             state = {...state, error: action.payload};
             break;
         }
+        case pocketActions.REMOVE_POCKET_DATA: {
+            state = {...state, reqToken: {}, accessToken: '', pocketLinks: []};
+            break;
+        }
         default:{
             return state;
         }

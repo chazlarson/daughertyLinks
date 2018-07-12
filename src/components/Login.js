@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPocketRequest, getPocketLinks, pocketAccessSuccess } from '../actions/pocket.actions';
+import { getPocketRequest, getPocketLinks, pocketAccessSuccess, removePocketData } from '../actions/pocket.actions';
 
 
 
@@ -17,6 +17,7 @@ function mapDispatchToProps(dispatch) {
     getPocketRequest: bindActionCreators(getPocketRequest, dispatch),
     getPocketLinks: bindActionCreators(getPocketLinks, dispatch),
     pocketAccessSuccess: bindActionCreators(pocketAccessSuccess, dispatch),
+    removePocketData: bindActionCreators(removePocketData, dispatch),
   };
 }
 
@@ -24,11 +25,12 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
     }
 
     componentDidMount() {
       const accessTokenCookie = this.props.cookies.get('pocketAccessToken')
-
+      // if cookie found, and accesstoke not stored, store access token from cookie and fetch links
       if (accessTokenCookie && !this.props.accessToken) {
         // consider creating new single action creator to reduce re-renders
         this.props.pocketAccessSuccess(accessTokenCookie);
@@ -51,16 +53,16 @@ class Login extends Component {
     }
 
     signOut() {
-      // delete cookie and remove all the pocketData from redux store
+      // delete cookie and remove all pocketData from redux store
       this.props.cookies.remove('pocketAccessToken', { path: '/' });
-
+      this.props.removePocketData();
     }
 
     render() {
         return (
           <div>
           { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
-            <button className="btn btn-primary-danger" >Do Nothing!</button> :
+            <button className="btn btn-primary-danger" onClick={this.signOut} >Logout</button> :
             <button className="btn btn-primary" onClick={this.signIn} >Login</button>
           }
         </div> )

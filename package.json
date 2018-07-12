@@ -6,7 +6,6 @@
     "ajv": "^6.5.2",
     "bootstrap": "^4.1.1",
     "dotenv": "^6.0.0",
-    "enzyme": "^3.3.0",
     "jquery": "^1.9.1",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
@@ -22,7 +21,18 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jasmine",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "ignore-styles": "^5.0.1",
+    "jasmine-enzyme": "^6.0.2",
+    "jsdom": "^11.11.0"
   }
 }
