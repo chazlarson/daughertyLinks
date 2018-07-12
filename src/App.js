@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
 import { updateSelectedTab } from './actions/tabs.action';
+import { withCookies } from 'react-cookie';
 
 function mapStateToProps(state) {
   return {
@@ -21,6 +22,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cookies: this.props.cookies,
+    };
+  }
+
   componentWillMount(){
     this.props.getDaughertyLinks();
   }
@@ -30,10 +38,12 @@ class App extends Component {
       <div className="App">
         <Wrapper links={this.props.links} 
                  tabs={this.props.tabs} 
-                 updateSelectedTab={this.props.updateSelectedTab} />
+                 updateSelectedTab={this.props.updateSelectedTab}
+                 cookies={this.state.cookies}
+        />
       </div>
     );
   }
 } 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withCookies(connect(mapStateToProps, mapDispatchToProps)(App));
