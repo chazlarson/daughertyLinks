@@ -12,7 +12,13 @@ class Tabs extends Component {
             tabsArray = tabsArray.concat(element.tags);
         });
         
-        tabsArray = [...new Set(tabsArray)];
+        tabsArray = [...new Set(tabsArray)].sort((a, b) => {
+            const d = 'Daugherty';
+            if(a === d) return -1;
+            if(b === d) return 1;
+            
+            return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
+        });;
         const allTabs = tabsArray.map(
             tab => {
                 return (

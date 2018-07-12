@@ -23,7 +23,7 @@ class Links extends Component {
             link => {
                 return (
                     <div key={`linksId_${++linkId}`} 
-                        className="col-lg-3 col-md-4 col-sm-12" >
+                        className="col-lg-2 col-md-4 col-sm-12" >
                         <a href={decodeURIComponent(link.link)} target="_blank" >
                         <div className="card text-center" style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
                         <div className="card-header">
