@@ -23,19 +23,25 @@ class Links extends Component {
             link => {
                 return (
                     <div key={`linksId_${++linkId}`} 
-                        className="col-sm-4 float-left link-container box-shadow rounded" 
-                        style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
+                        className="col-lg-3 col-md-4 col-sm-12" >
                         <a href={decodeURIComponent(link.link)} target="_blank" >
-                            <div className="link-title">
-                                {link.title.length === 0 ? this.substituteTitle(link.link) : link.title } 
+                        <div className="card card-stats" style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
+                        <p className="card-category">&nbsp;</p>
+                            <div className="card-footer">
+                            <div className="stats">
+                                    <div className="link-title">
+                                        {link.title.length === 0 ? this.substituteTitle(link.link) : link.title } 
+                                    </div>
                             </div>
+                            </div>
+                        </div>
                         </a>
                     </div>
                 );
             }
         )
         return ( 
-            <div>
+            <div className="row">
                 {linksArray}
             </div>
         );

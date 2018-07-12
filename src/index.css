@@ -32,6 +32,12 @@ div.link-container {
   background-size: 75%;
 }
 
+.card{
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 10px;
+  background-size: 60%;
+}
 div.link-title {
   padding-top: 100px;
 }
@@ -49,9 +55,6 @@ div.link-container:hover, .tab:hover {
   text-transform: uppercase;
 }
 
-.active {
-  border: 5px solid red;
-}
 
 .box-shadow {
   -webkit-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);

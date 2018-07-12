@@ -9,9 +9,11 @@ class Tab extends Component {
     render () {
 
         return(
-           <div className={`tab box-shadow rounded ${this.props.isActive ? " active" : "" }`} onClick={this.onClickHandle.bind(this)}>
-                {this.props.displayText}
-           </div>
+           <li className={`nav-item ${this.props.isActive ? " active" : "" }`}>
+                <a className="nav-link" href="javascript:void(null);"  onClick={this.onClickHandle.bind(this)}>
+                <p>{this.props.displayText}</p>
+                </a>
+           </li>
         );
     }
 }

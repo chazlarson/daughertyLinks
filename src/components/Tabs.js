@@ -16,18 +16,16 @@ class Tabs extends Component {
         const allTabs = tabsArray.map(
             tab => {
                 return (
-                    <div key={`tabId_${++keyId}`} >
-                        <Tab displayText={tab} 
+                        <Tab displayText={tab}  key={`tabId_${++keyId}`} 
                              updateSelectedTab={this.props.updateSelectedTab} 
                              isActive={(tab === this.props.tabs.selectedTab)} />
-                    </div>
                 );
             }
         );
         return (
-            <div>
+            <ul className='nav'>
                 {allTabs}
-            </div>
+            </ul>
         );
     }   
 }
