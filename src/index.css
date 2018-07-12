@@ -32,8 +32,28 @@ div.link-container {
   background-size: 75%;
 }
 
+.card{
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 10px;
+  background-size: 60%;
+}
 div.link-title {
   padding-top: 100px;
+}
+
+.card .card-footer{
+  background-color:rgba(0, 0, 0, 0.5);
+  color: #fff;
+  margin: 0 !important;
+  text-align: center !important;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px !important;
+}
+
+.nav-link{
+  text-transform: uppercase !important;
 }
 
 div.link-container:hover, .tab:hover {
@@ -49,9 +69,6 @@ div.link-container:hover, .tab:hover {
   text-transform: uppercase;
 }
 
-.active {
-  border: 5px solid red;
-}
 
 .box-shadow {
   -webkit-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);

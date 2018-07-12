@@ -10,7 +10,7 @@ import { withCookies } from 'react-cookie';
 function mapStateToProps(state) {
   return {
     links: state.links,
-    tabs: {...state.tabs}
+    tabs: state.tabs
   };
 }
 
