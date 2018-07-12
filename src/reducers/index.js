@@ -11,6 +11,7 @@ import tabsReducer from './tabs.reducer';
     tabs: tabsReducer
 })*/
 export const UPDATE_LINKS = 'UPDATE_LINKS';
+export const REMOVE_LINKS = 'REMOVE_LINKS';
 
 const reducers = reduceReducers(
     combineReducers({
@@ -21,11 +22,17 @@ const reducers = reduceReducers(
     }),
     // cross-cutting concerns because here `state` is the whole state tree
     (state, action) => {
+      const daughertyLinks = state.daughertyLinks;
       switch (action.type) {
         case UPDATE_LINKS:
-          const daughertyLinks = state.daughertyLinks;
           const pocket = state.pocket;
-          state = {...state, links: [...state.daughertyLinks.items, ...state.pocket.pocketLinks]};
+          state = {...state, links: [...daughertyLinks.items, ...pocket.pocketLinks]};
+          break;
+        case REMOVE_LINKS:
+          state = {...state, links: [...daughertyLinks.items]};
+          break;
+        default:
+          state = {...state};
       }
 
       //if(!state.links) state = {...state, links: []};
