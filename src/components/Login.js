@@ -8,7 +8,8 @@ import { getPocketRequest, getPocketLinks, pocketAccessSuccess, removePocketData
 function mapStateToProps(state) {
   return {
     reqToken: state.pocket.reqToken,
-    accessToken: state.pocket.accessToken
+    accessToken: state.pocket.accessToken,
+    popUpError: state.pocket.popUpError,
   };
 }
 

@@ -19,10 +19,19 @@ export const POCKET_GET_LINKS_SUCCESS ='POCKET_GET_LINKS_SUCCESS';
 
 export const REMOVE_POCKET_DATA='REMOVE_POCKET_DATA';
 
+export const ALERT_POP_UP_BLOCKED='ALERT_POP_UP_BLOCKED';
+
 const loadingMessage = 'Loading, just a couple seconds please!';
 const finishedLoading = '';
 const defaultTab = 'Daugherty';
 
+
+export function alertPopUpBlocked() {
+    return {
+        type: ALERT_POP_UP_BLOCKED,
+        payload: 'Please enable pop-ups! :)'
+    };
+}
 
 export function pocketRequestError(err) {
     return {
@@ -45,10 +54,10 @@ export function pocketRequestSuccess(code) {
     };
 }
 
-export function pocketAccessError(err) {
+export function pocketAccessError(error) {
     return {
         type: POCKET_ACCESS_TOKEN_ERROR,
-        payload: err
+        payload: { error }
     };
 }
 
@@ -103,6 +112,7 @@ export function getPocketRequest() {
         pocketServices.getRequestToken()
         .then(res => {
             if(!res.ok) {
+
                 throw(res.statusText)
             }
             return res.json();
@@ -112,7 +122,8 @@ export function getPocketRequest() {
           var win = window.open(pocketServices.pocketReroute(res.code, 'http://localhost:3000/close.html') , "SignIn", "");
           var pollTimer = window.setInterval(function() {
             if (!win) {
-                alert('Please turn pop-ups on!');
+                dispatch(alertPopUpBlocked())
+                dispatch(updateStatusMessage(finishedLoading));
                 return;
             } 
             else if (win.closed !== false) {
@@ -122,7 +133,8 @@ export function getPocketRequest() {
           }, 200);
         })
         .catch(e => {
-          dispatch(pocketRequestError(e))
+          dispatch(pocketGetLinksLoading(false));
+          dispatch(pocketRequestError(e));
           console.log(e);});
     };
 }
@@ -139,13 +151,13 @@ export function getPocketAccessToken(requestToken) {
             return res.json();
         })
         .then(res => {
-            
-        //   localStorage.setItem('pocketAccessToken', res.access_token);
-          dispatch(pocketAccessSuccess(res.access_token))
+          dispatch(pocketAccessSuccess(res.access_token));
           dispatch(getPocketLinks(res.access_token));
         })
         .catch(e => {
-          dispatch(pocketAccessError(e))
+          dispatch(updateStatusMessage(finishedLoading));
+          dispatch(pocketGetLinksLoading(false));
+          dispatch(pocketAccessError(e));
           console.log(e);});
     };
 }
