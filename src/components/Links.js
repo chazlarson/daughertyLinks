@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 
 class Links extends Component {
-    substituteTitle (title) {
-        let linkURL = decodeURIComponent(title);
+    substituteTitle (title, domain = true, maxLen = 40) {
+        const linkURL = decodeURIComponent(title);
 
         const linkArray = linkURL.split('/')
-        console.log("substituteTitle", linkArray);
-        return (linkArray[2]);
+        let retVal = linkURL;
+        if(domain) {
+            retVal = linkArray.length > 2 ? linkArray[2] : linkURL;
+        }
+        else{
+            if(linkArray.length > 3){
+                retVal = linkArray.splice(3).join('/');
+                if(retVal === '') retVal = linkArray[2];
+            }else if(linkArray.length > 2){
+                retVal = linkArray[2];
+            }
+        }
+
+        if(retVal.length > maxLen) retVal = retVal.substring(0, maxLen - 1);
+        if(retVal.endsWith('/')) retVal = retVal.substring(0, retVal.length - 1);
+        return (retVal);
     }
 
     render () {
