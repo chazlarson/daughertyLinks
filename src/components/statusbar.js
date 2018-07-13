@@ -4,7 +4,7 @@ class StatusBar extends Component {
     render () {
         
         return ( 
-            <div className="col-sm-12 col-md-12 statusbar">
+            <div className="float-left">
                 {this.props.message}
             </div>
         );

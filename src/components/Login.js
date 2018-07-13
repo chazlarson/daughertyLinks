@@ -60,12 +60,17 @@ class Login extends Component {
 
     render() {
         return (
-          <div>
+          <span>
           { this.props.cookies.get('pocketAccessToken' || this.props.accessToken) ?
-            <button className="btn btn-primary-danger" onClick={this.signOut} >Logout</button> :
-            <button className="btn btn-primary" onClick={this.signIn} >Login</button>
+              <span className="dropdown-item nav-clickable"  onClick={this.signOut} title="Sign out of Pocket">
+                Sign out of Pocket
+              </span>
+          :
+          <span className="dropdown-item nav-clickable" onClick={this.signIn} title="Sign into Pocket">
+            Sign into Pocket
+          </span>
           }
-        </div> )
+        </span> )
   }
 }
 

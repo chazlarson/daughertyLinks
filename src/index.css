@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #fafafa !important;
 }
 
 div.right-col {
@@ -32,11 +33,12 @@ div.link-container {
   background-size: 75%;
 }
 
-.card{
+.card .card-body{
   background-repeat: no-repeat;
   background-position-x: 50%;
-  background-position-y: 10px;
-  background-size: 60%;
+  background-size: 90%;
+  height: 100px;
+  margin-bottom: 7px;
 }
 div.link-title {
   padding-top: 100px;
@@ -69,6 +71,25 @@ div.link-container:hover, .tab:hover {
   text-transform: uppercase;
 }
 
+.footer{
+  padding: 0 !important;
+}
+
+.dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu a:hover, .dropdown-menu a:focus, .dropdown-menu a:active{
+  background-color: #f44336;
+}
+
+.navbar-brand{
+  font-weight: bold !important;
+}
+
+.nav-clickable{
+  cursor: pointer;
+}
+
+.copyright{
+  font-size: small;
+}
 
 .box-shadow {
   -webkit-box-shadow: 7px 10px 19px 0px rgba(0,0,0,0.38);

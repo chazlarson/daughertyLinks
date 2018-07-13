@@ -46,4 +46,4 @@ class App extends Component {
   }
 } 
 
-export default withCookies(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(App));

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class Links extends Component {
     substituteTitle (title) {
-        let linkURL = title;
+        let linkURL = decodeURIComponent(title);
 
         const linkArray = linkURL.split('/')
-
+        console.log("substituteTitle", linkArray);
         return (linkArray[2]);
     }
 
@@ -23,13 +23,13 @@ class Links extends Component {
             link => {
                 return (
                     <div key={`linksId_${++linkId}`} 
-                        className="col-lg-2 col-md-4 col-sm-12" >
+                        className="col-xs-12 col-sm-6 col-md-3 col-lg-2 " >
                         <a href={decodeURIComponent(link.link)} target="_blank" >
-                        <div className="card text-center" style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
+                        <div className="card text-center">
                         <div className="card-header">
-                            &nbsp;
+                            {this.substituteTitle(link.link)}
                         </div>
-                        <div className="card-body">
+                        <div className="card-body" style={{backgroundImage: `url(${decodeURIComponent(link.image)})`}}>
                             &nbsp;
                         </div>
                         <div className="card-footer">
