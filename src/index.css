@@ -76,7 +76,7 @@ div.link-container:hover, .tab:hover {
 }
 
 .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus, .dropdown-menu a:hover, .dropdown-menu a:focus, .dropdown-menu a:active{
-  background-color: #f44336;
+  background-color: #789c3f;
 }
 
 .navbar-brand{
@@ -89,6 +89,21 @@ div.link-container:hover, .tab:hover {
 
 .copyright{
   font-size: small;
+}
+.sidebar[data-color="danger"] li.active > a{
+  background-color: #789c3f;
+}
+
+#pocket-closed, #pocket-open{
+  color: #789c3f;
+  font-size: x-large;
+}
+.show #pocket-closed, #pocket-open{
+  display: none;
+}
+
+.show #pocket-open{
+  display: inline-block;
 }
 
 .box-shadow {

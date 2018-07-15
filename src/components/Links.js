@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {UNCATEGORIZED_TAB} from './Tabs'
 
 class Links extends Component {
     substituteTitle (title, domain = true, maxLen = 40) {
@@ -29,7 +30,7 @@ class Links extends Component {
         const activeTab = this.props.tabs.selectedTab;
         // if selectedTab in link.tag
         let selectedLinks = this.props.links.filter(link => {
-            return (activeTab === 'Uncategorized' && link.tags.length === 0 
+            return (activeTab === UNCATEGORIZED_TAB && link.tags.length === 0 
                 ? true
                 : link.tags.indexOf(activeTab)>-1);
         })

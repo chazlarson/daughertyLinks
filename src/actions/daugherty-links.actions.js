@@ -46,8 +46,8 @@ export function getDaughertyLinks() {
             .then((response) => 
                 dispatch(
                     daughertyLinksFetchDataSuccess(
-                        response.items.sort((a, b) => a.order - b.order)
-                        .map(item => new link({...item, tags : ['Daugherty']}))
+                        response.sort((a, b) => a.order - b.order)
+                        .map(item => new link({...item, tags : item.tags || ['Daugherty']}))
                     )
                 )
             ).then(resp => dispatch({

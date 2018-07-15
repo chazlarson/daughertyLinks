@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "airbnb-js-shims": "^2.0.0",
     "ajv": "^6.5.2",
     "bootstrap": "^4.1.1",
     "dotenv": "^6.0.0",

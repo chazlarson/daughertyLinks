@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Tab from './Tab';
 
+export const UNCATEGORIZED_TAB = 'Uncategorized';
 class Tabs extends Component {
     render() {
         let keyId = 0;
         let tabsArray = [];
         this.props.links.forEach(element => {
             if (element.tags.length === 0) {
-                tabsArray = tabsArray.concat('Uncategorized');
+                tabsArray = tabsArray.concat(UNCATEGORIZED_TAB);
             }
             tabsArray = tabsArray.concat(element.tags);
         });
@@ -16,6 +17,8 @@ class Tabs extends Component {
             const d = 'Daugherty';
             if(a === d) return -1;
             if(b === d) return 1;
+            if(a === UNCATEGORIZED_TAB) return -1;
+            if(b === UNCATEGORIZED_TAB) return 1;
             
             return a.toUpperCase() > b.toUpperCase() ? 1 : -1;
         });;

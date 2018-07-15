@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getDaughertyLinks } from './actions/daugherty-links.actions';
 import { updateSelectedTab } from './actions/tabs.action';
 import { withCookies } from 'react-cookie';
+import 'airbnb-js-shims';
 
 function mapStateToProps(state) {
   return {

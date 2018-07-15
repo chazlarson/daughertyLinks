@@ -32,9 +32,10 @@ class Wrapper extends Component {
             <ul className="navbar-nav">
             <li className="nav-item dropdown">
                 <a className="nav-link" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i className="material-icons">account_circle</i>
+                  <i className="material-icons" id="pocket-closed">arrow_drop_down_circle</i>
+                  <i className="material-icons" id="pocket-open">arrow_drop_up</i>
                   <p className="d-lg-none d-md-block">
-                    Actions
+                    Pocket
                   </p>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"  data-color="danger">
