@@ -7,6 +7,8 @@
     "ajv": "^6.5.2",
     "bootstrap": "^4.1.1",
     "dotenv": "^6.0.0",
+    "firebase": "^5.2.0",
+    "firebase-auth": "^0.1.2",
     "jquery": "^1.9.1",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
