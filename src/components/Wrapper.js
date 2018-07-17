@@ -3,6 +3,7 @@ import Tabs from './Tabs';
 import Links from './Links';
 import Login from './Login';
 import StatusBar from '../components/statusbar';
+import GoogleAdmin from '../components/GoogleAdmin';
 
 class Wrapper extends Component {
     render() {
@@ -41,6 +42,7 @@ class Wrapper extends Component {
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"  data-color="danger">
                     <Login cookies={this.props.cookies}/>
                   <a className="dropdown-item" href="https://getpocket.com" rel="noopener noreferrer" target="_blank">Open Pocket</a>
+                  <GoogleAdmin/>
                 </div>
               </li>
             </ul>
