@@ -41,9 +41,15 @@ export function getLinks() {
 
         var linksRef = firebase.database().ref('items');
         linksRef.on('value', function (snapshot) {
-            //updateStarCount(postElement, snapshot.val());
-            const payload = snapshot.val().sort((a, b) => a.order - b.order)
-                .map(item => new link({ ...item, tags: item.tags || ['Daugherty'] }));
+            const items = snapshot.val();
+            const keys = Object.keys(items);
+            items.forEach((element, idx) => {
+                element.key = keys[idx];
+            });
+
+            const payload =items.sort((a, b) => a.order - b.order)
+                .map(item => 
+                    new link({ ...item, tags: item.tags || ['Daugherty'], meta:{key: item.key} }));
 
             dispatch({
                 type: FIREBASE_LINKS_FETCH_DATA_SUCCESS,
@@ -73,27 +79,12 @@ export function signIn() {
         });
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            console.log("Good signin", { ...firebase });
             dispatch({
                 type: FIREBASE_SIGNIN_SUCCESS,
-                payload: {
-                    token,
-                    user
-                }
+                payload: result
             });
         }).catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            console.log("Error", error);
+            console.log("Signin Error", error);
             dispatch({
                 type: FIREBASE_SIGNIN_ERROR,
                 payload: error
