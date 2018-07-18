@@ -95,7 +95,7 @@ export function checkAdmin() {
         const linksRef = firebase.database().ref(`users/${user.uid}/roles`);
         linksRef.on('value', function (snapshot) {
             const roles = snapshot.val();
-            let isAdmin = roles.admin;
+            let isAdmin = roles && roles.admin;
 
             dispatch({
                 type: FIREBASE_ISADMIN_SUCCESS,
@@ -163,6 +163,8 @@ export function updateLinks(updateArray) {
         dispatch({
             type: FIREBASE_LINKS_ARE_UPDATING
         });
+
+        let newLinkKey = '';
     
         let updates = {};
         let linkData = {
@@ -174,7 +176,7 @@ export function updateLinks(updateArray) {
         }
 
         for(let x=0; x <= updateArray.length; x++) {
-            let newLinkKey = firebase.database().ref().child('items').push().key;
+            
             
             if (!updateArray[x].meta.delete) {
                 (updateArray[x].title) ? linkData.title = updateArray[x].title : linkData.title = '';
@@ -186,10 +188,10 @@ export function updateLinks(updateArray) {
                 (updateArray[x].tags) ? linkData.tags = updateArray[x].tags : linkData.tags = [];
 
                 if (!updateArray[x].meta.key) {
+                    newLinkKey = firebase.database().ref().child('items').push().key;
                     updates[newLinkKey] = linkData;
                 } else {
-                    newLinkKey = updateArray[x].meta.key;
-                    updates[newLinkKey] = linkData;
+                    updates[updateArray[x].meta.key] = linkData;
                 }
             } else {
                 linkData.title = null;
