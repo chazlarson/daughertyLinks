@@ -22,6 +22,17 @@ export const FIREBASE_SIGNOUT_LOADING = 'FIREBASE_SIGNOUT_LOADING';
 export const FIREBASE_SIGNOUT_ERROR = 'FIREBASE_SIGNOUT_ERROR';
 export const FIREBASE_SIGNOUT_SUCCESS = 'FIREBASE_SIGNOUT_SUCCESS';
 
+export const FIREBASE_LINKS_ARE_UPDATING = 'FIREBASE_LINKS_ARE_UPDATING';
+export const FIREBASE_LINKS_UPDATED_SUCCESS = 'FIREBASE_LINKS_UPDATED_SUCCESS';
+export const FIREBASE_LINKS_UPDATED_FAILED = 'FIREBASE_LINKS_UPDATED_FAILED';
+
+export const FIREBASE_IS_ADDING_LINK = 'FIREBASE_IS_ADDING_LINK';
+export const FIREBASE_LINK_ADDED_SUCCESS = 'FIREBASE_LINK_ADDED_SUCCESS';
+export const FIREBASE_LINK_ADDED_FAILED = 'FIREBASE_LINK_ADDED_FAILED';
+
+export const FIREBASE_IS_DELETING_LINK = 'FIREBASE_IS_DELETING_LINK';
+export const FIREBASE_LINK_DELETED_SUCCESS = 'FIREBASE_LINK_DELETED_SUCCESS';
+export const FIREBASE_LINK_DELETED_FAILED = 'FIREBASE_LINK_DELETED_FAILED';
 
 export function initialize() {
     return (dispatch) => {
@@ -111,3 +122,30 @@ export function signOut() {
         });
     }
 }
+
+// export function addLink() {
+//     let linkData = new link {
+//         title: '',
+        
+//     }
+
+//     return ((dispatch) => {
+//         dispatch({
+//             type: FIREBASE_IS_ADDING_LINK
+//         });
+        
+//         var linksDB = firebase.database().ref('users/' + config.messagingSenderId).set{
+//             url: url,
+//             title: title,
+//             image: image,
+//         }
+//     })
+// }
+
+// export function updateLink() {
+//     return;
+// }
+
+// export function deleteLink() {
+//     return;
+// }
