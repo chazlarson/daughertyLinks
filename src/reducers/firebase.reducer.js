@@ -1,7 +1,8 @@
 import * as fba from '../actions/firebase.actions';
 
 const defaultState = {
-    isAuth: false
+    isAuth: false,
+    isAdmin: false
 };
 
 const firebaseReducer = (state = defaultState, action) => {
@@ -20,6 +21,10 @@ const firebaseReducer = (state = defaultState, action) => {
         }
         case fba.FIREBASE_SIGNOUT_SUCCESS:{
             state = {...state, isAuth: fba.isAuth()};
+            break;
+        }
+        case fba.FIREBASE_ISADMIN_SUCCESS:{
+            state = {...state, isAdmin: action.payload, isAuth: fba.isAuth()};
             break;
         }
         default:{
