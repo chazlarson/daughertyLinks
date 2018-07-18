@@ -202,8 +202,6 @@ export function updateLinks(updateArray) {
             }
         }
 
-        console.log(newLinkKey);
-
         if(updates) {
             firebase.database.ref().update(updates)
             .then(function () {
@@ -212,9 +210,9 @@ export function updateLinks(updateArray) {
                 });
             })
             .catch(function (error) {
-                dispatcy({
+                dispatch({
                     type: FIREBASE_LINKS_UPDATED_FAILED,
-                    paylod: error,
+                    payload: error,
                 })
             })
         }
