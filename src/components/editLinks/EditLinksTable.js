@@ -1,8 +1,7 @@
 import React from 'react';
 
 const EditLinksTable = (props) => {
-  console.log(props);
-  const links = props.links || [{title: 'title', link: 'link', image: 'image'}];
+  const links = props.links;
   return (
     <table className="table">
       <thead>
@@ -20,19 +19,24 @@ const EditLinksTable = (props) => {
               {i + 1}
             </td>
             <td>
-              <input onChange={(e) => {props.updateLinkTitle(i, e.target.value)}} value={link.title}>
+              <input onChange={(e) => {props.updateLink(link.id, e.target.value, 'title')}} value={link.title}>
               </input>
             </td>
             <td>
-              <input onChange={(e) => {props.updateLink(i, e.target.value)}} value={link.link}>
+              <input onChange={(e) => {props.updateLink(link.id, e.target.value, 'link')}} value={decodeURIComponent(link.link)}>
               </input>
             </td>
             <td>
-              <input onChange={(e) => {props.updateLinkImage(i, e.target.value)}} value={link.image}>
+              <input onChange={(e) => {props.updateLink(link.id, e.target.value, 'image')}} value={link.image}>
               </input>
+            </td>
+            <td>
+              <p onClick={(e) => {props.deleteLink(link)}}> delete
+              </p>
             </td>
           </tr>
         })}
+        <tr><td><button onClick={props.newLink} >new link</button></td></tr>
       </tbody>
     </table>
   )

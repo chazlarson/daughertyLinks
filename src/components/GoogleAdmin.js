@@ -49,7 +49,8 @@ class GoogleAdmin extends Component {
                         <span className="dropdown-item nav-clickable" onClick={this.signOut} title="Admin Sign-out">
                             Admin Sign-out
                         </span>
-                        <span className="dropdown-item nav-clickable" title="Edit Links">
+                        {/* use bootstrap to pop up modal on click */}
+                        <span className="dropdown-item nav-clickable" title="Edit Links"  data-toggle="modal" data-target="#editLinksModal">
                             Edit Links
                         </span>
                     </span>
