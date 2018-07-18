@@ -46,16 +46,16 @@ class GoogleAdmin extends Component {
             <span>
                 {(this.props.isAuth) ?
                     <span>
-                        <span className="dropdown-item nav-clickable" onClick={this.signOut} title="Google Sign-out">
-                            Google Sign-out
+                        <span className="dropdown-item nav-clickable" onClick={this.signOut} title="Admin Sign-out">
+                            Admin Sign-out
                         </span>
                         <span className="dropdown-item nav-clickable" title="Edit Links">
                             Edit Links
                         </span>
                     </span>
                     :
-                    <span className="dropdown-item nav-clickable" onClick={this.signIn} title="Google Sign-in">
-                        Google Sign-in
+                    <span className="dropdown-item nav-clickable" onClick={this.signIn} title="Admin Sign-in">
+                        Admin Sign-in
                     </span>
                 }
             </span>)
