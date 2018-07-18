@@ -34,6 +34,9 @@ export const FIREBASE_IS_DELETING_LINK = 'FIREBASE_IS_DELETING_LINK';
 export const FIREBASE_LINK_DELETED_SUCCESS = 'FIREBASE_LINK_DELETED_SUCCESS';
 export const FIREBASE_LINK_DELETED_FAILED = 'FIREBASE_LINK_DELETED_FAILED';
 
+export const FIREBASE_ISADMIN_SUCCESS = 'FIREBASE_ISADMIN_LOADING';
+export const FIREBASE_ISADMIN_LOADING = 'FIREBASE_ISADMIN_SUCCESS';
+
 export function initialize() {
     return (dispatch) => {
         var firebaseApp = firebase.initializeApp(config);
@@ -66,8 +69,37 @@ export function getLinks() {
                 type: FIREBASE_LINKS_FETCH_DATA_SUCCESS,
                 payload: payload
             });
+
+            dispatch(checkAdmin());
             dispatch({
                 type: UPDATE_LINKS
+            });
+        });
+    }
+}
+
+export function checkAdmin() {
+    return (dispatch) => {
+        dispatch({
+            type: FIREBASE_ISADMIN_LOADING
+        });
+
+        const user = getUser();
+        if(user === null){
+            dispatch({
+                type: FIREBASE_ISADMIN_SUCCESS,
+                payload: false
+            })
+            return;
+        }
+        const linksRef = firebase.database().ref(`users/${user.uid}/roles`);
+        linksRef.on('value', function (snapshot) {
+            const roles = snapshot.val();
+            let isAdmin = roles.admin;
+
+            dispatch({
+                type: FIREBASE_ISADMIN_SUCCESS,
+                payload: isAdmin
             });
         });
     }
@@ -94,6 +126,7 @@ export function signIn() {
                 type: FIREBASE_SIGNIN_SUCCESS,
                 payload: result
             });
+            dispatch(checkAdmin());
         }).catch(function (error) {
             console.log("Signin Error", error);
             dispatch({
@@ -114,6 +147,7 @@ export function signOut() {
             dispatch({
                 type: FIREBASE_SIGNOUT_SUCCESS
             });
+            dispatch(checkAdmin());
         }).catch(function (error) {
             dispatch({
                 type: FIREBASE_SIGNOUT_ERROR,
