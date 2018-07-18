@@ -123,29 +123,68 @@ export function signOut() {
     }
 }
 
-// export function addLink() {
-//     let linkData = new link {
-//         title: '',
-        
-//     }
+export function updateLinks(updateArray) {
+    // Get a new key
+    return (dispatch) => {
+        dispatch({
+            type: FIREBASE_LINKS_ARE_UPDATING
+        });
+    
+        let updates = {};
+        let linkData = {
+            title: '',
+            link: '',
+            order: '',
+            tags: [],
+            image: '',
+        }
 
-//     return ((dispatch) => {
-//         dispatch({
-//             type: FIREBASE_IS_ADDING_LINK
-//         });
-        
-//         var linksDB = firebase.database().ref('users/' + config.messagingSenderId).set{
-//             url: url,
-//             title: title,
-//             image: image,
-//         }
-//     })
-// }
+        for(let x=0; x <= updateArray.length; x++) {
+            let newLinkKey = firebase.database().ref().child('items').push().key;
+            
+            if (!updateArray[x].meta.delete) {
+                (updateArray[x].title) ? linkData.title = updateArray[x].title : linkData.title = '';
+                (updateArray[x].link) ? linkData.link = updateArray[x].link : linkData.link = '';
+                if (updateArray[x].order) { 
+                    linkData.order = updateArray[x].order;
+                }
+                (updateArray[x].image) ? linkData.image = updateArray[x].image : linkData.image = '';
+                (updateArray[x].tags) ? linkData.tags = updateArray[x].tags : linkData.tags = [];
 
-// export function updateLink() {
-//     return;
-// }
+                if (!updateArray[x].meta.key) {
+                    updates[newLinkKey] = linkData;
+                } else {
+                    newLinkKey = updateArray[x].meta.key;
+                    updates[newLinkKey] = linkData;
+                }
+            } else {
+                linkData.title = null;
+                linkData.image = null;
+                linkData.order = null;
+                linkData.tags = null;
+                linkData.link = null;
 
-// export function deleteLink() {
-//     return;
-// }
+                updates[updateArray[x].meta.key] = linkData;
+            }
+        }
+
+        console.log(newLinkKey);
+
+        if(updates) {
+            firebase.database.ref().update(updates)
+            .then(function () {
+                dispatch({ 
+                    type: FIREBASE_LINKS_UPDATED_SUCCESS,
+                });
+            })
+            .catch(function (error) {
+                dispatcy({
+                    type: FIREBASE_LINKS_UPDATED_FAILED,
+                    paylod: error,
+                })
+            })
+        }
+    }
+
+    
+}
