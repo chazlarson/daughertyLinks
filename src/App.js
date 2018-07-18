@@ -7,7 +7,7 @@ import { getDaughertyLinks } from './actions/daugherty-links.actions';
 import { updateSelectedTab } from './actions/tabs.action';
 import { withCookies } from 'react-cookie';
 import 'airbnb-js-shims';
-import {getLinks, initialize} from './actions/firebase.actions';
+import {getLinks, initialize, signIn} from './actions/firebase.actions';
 
 function mapStateToProps(state) {
   return {
@@ -21,7 +21,8 @@ function mapDispatchToProps(dispatch) {
     getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch),
     updateSelectedTab:  bindActionCreators(updateSelectedTab, dispatch),
     getFirebaseLinks: bindActionCreators(getLinks, dispatch),
-    initializeFirebase: bindActionCreators(initialize, dispatch)
+    initializeFirebase: bindActionCreators(initialize, dispatch),
+    firebaseSignIn: bindActionCreators(signIn, dispatch)
   };
 }
 
