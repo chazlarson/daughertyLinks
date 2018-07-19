@@ -101,7 +101,7 @@ class EditLinks extends React.Component {
       <EditLinksModal
         cancelLinkChanges={this.cancelLinkChanges}
         deleteLink={this.deleteLink}
-        links={this.state.links.filter(link => !link.meta.delete)}
+        links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
         updateLink={this.updateLink}
         saveChanges={this.saveUpdatedLinks}
         newLink={this.newLink}
