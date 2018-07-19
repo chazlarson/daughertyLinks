@@ -61,6 +61,7 @@ class EditLinks extends React.Component {
       const deletedLink = new linkModel(JSON.parse(JSON.stringify(link)));
       const {deleteLinks} = this.state;
       deletedLink.meta.delete = true;
+      deletedLink.meta.updated = false;
       deleteLinks.push(deletedLink)
       newState.deleteLinks = deleteLinks;
     }
