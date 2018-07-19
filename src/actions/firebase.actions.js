@@ -55,8 +55,9 @@ export function getLinks() {
 
         var linksRef = firebase.database().ref('items');
         linksRef.on('value', function (snapshot) {
-            const items = snapshot.val();
-            const keys = Object.keys(items);
+            const valObj = snapshot.val();
+            const keys = Object.keys(valObj);
+            const items = Object.values(valObj);
             items.forEach((element, idx) => {
                 element.key = keys[idx];
             });
@@ -171,7 +172,7 @@ export function updateLinks(updateArray) {
             title: '',
             link: '',
             order: '',
-            tags: [],
+            //tags: [],
             image: '',
         }
 
@@ -185,7 +186,7 @@ export function updateLinks(updateArray) {
                     linkData.order = updateArray[x].order;
                 }
                 (updateArray[x].image) ? linkData.image = updateArray[x].image : linkData.image = '';
-                (updateArray[x].tags) ? linkData.tags = updateArray[x].tags : linkData.tags = [];
+                //(updateArray[x].tags) ? linkData.tags = updateArray[x].tags : linkData.tags = [];
 
                 if (!updateArray[x].meta.key) {
                     newLinkKey = firebase.database().ref().child('items').push().key;
