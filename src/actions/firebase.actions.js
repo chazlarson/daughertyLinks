@@ -168,16 +168,16 @@ export function updateLinks(updateArray) {
         let newLinkKey = '';
     
         let updates = {};
-        let linkData = {
-            title: '',
-            link: '',
-            order: '',
-            //tags: [],
-            image: '',
-        }
+        
 
         for(let x=0; x < updateArray.length; x++) {
-            
+            const linkData = {
+                title: '',
+                link: '',
+                order: '',
+                //tags: [],
+                image: '',
+            }
             
             if (!updateArray[x].meta.delete) {
                 (updateArray[x].title) ? linkData.title = updateArray[x].title : linkData.title = '';
@@ -188,7 +188,7 @@ export function updateLinks(updateArray) {
                 (updateArray[x].image) ? linkData.image = updateArray[x].image : linkData.image = '';
                 //(updateArray[x].tags) ? linkData.tags = updateArray[x].tags : linkData.tags = [];
 
-                if (!updateArray[x].meta.key) {
+                if (updateArray[x].meta.key === undefined) {
                     newLinkKey = firebase.database().ref().child('items').push().key;
                     updates[`items/${newLinkKey}`] = linkData;
                 } else {
