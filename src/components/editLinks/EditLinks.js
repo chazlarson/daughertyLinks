@@ -1,6 +1,19 @@
 import React from 'react';
 import EditLinksModal from './EditLinksModal';
 import linkModel from '../../models/link';
+import * as fireBaseActions from '../../actions/firebase.actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateLinks: bindActionCreators(fireBaseActions.updateLinks, dispatch)
+  }
+}
 
 class EditLinks extends React.Component {
   constructor(props) {
@@ -92,7 +105,7 @@ class EditLinks extends React.Component {
   saveUpdatedLinks () {
     const updatedLinks = this.getUpdatedLinks().concat(this.state.deleteLinks);
     console.log(updatedLinks);
-    // call db helper func here
+    this.props.updateLinks(updatedLinks);
   }
 
 
@@ -110,4 +123,4 @@ class EditLinks extends React.Component {
   }
 }
 
-export default EditLinks;
+export default connect(mapStateToProps, mapDispatchToProps)(EditLinks);
