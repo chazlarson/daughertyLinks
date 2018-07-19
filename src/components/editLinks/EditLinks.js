@@ -82,8 +82,9 @@ class EditLinks extends React.Component {
   }
 
   // pass to update link
-  updateLink (linkId, updatedData, linkProperty) {
-    const update = {meta: {updated: true}}
+  updateLink (link, updatedData, linkProperty) {
+    const linkId = link.id
+    const update = {meta: {updated: true, key: link.meta.key}}
     update[linkProperty] = linkProperty === 'link' ? encodeURIComponent(updatedData) : updatedData;
     const links = this.state.links.map(linkObj => (
       linkObj.id === linkId ? new linkModel(Object.assign({}, linkObj, update)) : linkObj ));
