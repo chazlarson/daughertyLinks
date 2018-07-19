@@ -175,7 +175,7 @@ export function updateLinks(updateArray) {
             image: '',
         }
 
-        for(let x=0; x <= updateArray.length; x++) {
+        for(let x=0; x < updateArray.length; x++) {
             
             
             if (!updateArray[x].meta.delete) {
@@ -205,7 +205,7 @@ export function updateLinks(updateArray) {
         }
 
         if(updates) {
-            firebase.database.ref().update(updates)
+            firebase.database().ref().update(updates)
             .then(function () {
                 dispatch({ 
                     type: FIREBASE_LINKS_UPDATED_SUCCESS,
