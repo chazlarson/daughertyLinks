@@ -189,9 +189,9 @@ export function updateLinks(updateArray) {
 
                 if (!updateArray[x].meta.key) {
                     newLinkKey = firebase.database().ref().child('items').push().key;
-                    updates[newLinkKey] = linkData;
+                    updates[`items/${newLinkKey}`] = linkData;
                 } else {
-                    updates[updateArray[x].meta.key] = linkData;
+                    updates[`items/${updateArray[x].meta.key}`] = linkData;
                 }
             } else {
                 linkData.title = null;
@@ -200,7 +200,7 @@ export function updateLinks(updateArray) {
                 linkData.tags = null;
                 linkData.link = null;
 
-                updates[updateArray[x].meta.key] = linkData;
+                updates[`items/${updateArray[x].meta.key}`] = linkData;
             }
         }
 
