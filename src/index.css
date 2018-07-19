@@ -79,6 +79,10 @@ div.link-container:hover, .tab:hover {
   background-color: #789c3f;
 }
 
+.modal-table{
+  display: table;
+}
+
 .navbar-brand{
   font-weight: bold !important;
 }

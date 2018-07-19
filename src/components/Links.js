@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {UNCATEGORIZED_TAB} from './Tabs'
+import EditLinks from './editLinks/EditLinks';
 
 class Links extends Component {
     substituteTitle (title, domain = true, maxLen = 40) {
@@ -57,8 +58,11 @@ class Links extends Component {
             }
         )
         return ( 
-            <div className="row">
-                {linksArray}
+            <div>
+                {this.props.tabs.selectedTab === 'Daugherty' && <EditLinks links={selectedLinks} />}
+                <div className="row">
+                    {linksArray}
+                </div>
             </div>
         );
     }

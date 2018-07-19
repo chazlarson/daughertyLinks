@@ -51,7 +51,7 @@ class GoogleAdmin extends Component {
         let editLink = null;
         if(this.props.isAdmin){
             editLink = (
-                <span className="dropdown-item nav-clickable" title="Edit Links">
+                <span className="dropdown-item nav-clickable" title="Edit Links" data-toggle="modal" data-target="#editLinksModal">
                     Edit Links
                 </span>
             )
