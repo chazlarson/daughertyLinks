@@ -2,7 +2,8 @@ import * as fba from '../actions/firebase.actions';
 
 const defaultState = {
     isAuth: false,
-    isAdmin: false
+    isAdmin: false,
+    lastFetch: 0
 };
 
 const firebaseReducer = (state = defaultState, action) => {
@@ -12,7 +13,7 @@ const firebaseReducer = (state = defaultState, action) => {
             break;
         }
         case fba.FIREBASE_LINKS_FETCH_DATA_SUCCESS:{
-            state = {...state, firebaseLinks: action.payload, isAuth: fba.isAuth()};
+            state = {...state, firebaseLinks: action.payload, isAuth: fba.isAuth(), lastFetch: new Date().getTime()};
             break;
         }
         case fba.FIREBASE_SIGNIN_SUCCESS:{
