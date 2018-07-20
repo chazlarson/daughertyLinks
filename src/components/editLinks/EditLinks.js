@@ -4,6 +4,7 @@ import linkModel from '../../models/link';
 import * as fireBaseActions from '../../actions/firebase.actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import { deepClone } from '../../helpers/utilities.helper';
 
 function mapStateToProps(state) {
   return {};
@@ -29,6 +30,10 @@ class EditLinks extends React.Component {
     this.resetStateLinksFromProps = this.resetStateLinksFromProps.bind(this);
     this.saveUpdatedLinks = this.saveUpdatedLinks.bind(this);
     this.updateLink = this.updateLink.bind(this);
+    this.updateLinkProperty = this.updateLinkProperty.bind(this);
+    this.updateImageProperty = this.updateImageProperty.bind(this);
+    this.updateOrderProperty = this.updateOrderProperty.bind(this);
+    this.updateTitleProperty = this.updateTitleProperty.bind(this);
   }
 
   cancelLinkChanges() {
@@ -54,11 +59,10 @@ class EditLinks extends React.Component {
 
   // given a link model, remove from links in state and add it to deleteLinks if has key
   deleteLink (link) {
-    const newState = {};
     const links = this.state.links.filter(({id}) => link.id !== id);
-    newState.links = links;
+    const newState = {updated: true, links};
     if(link.meta.key !== undefined) {
-      const deletedLink = new linkModel(JSON.parse(JSON.stringify(link)));
+      const deletedLink = new linkModel(deepClone(link));
       const {deleteLinks} = this.state;
       deletedLink.meta.delete = true;
       deletedLink.meta.updated = false;
@@ -71,36 +75,41 @@ class EditLinks extends React.Component {
   // return only updated links in an array
   getUpdatedLinks() {
     const links = this.state.links.map(linkObj => new linkModel({...linkObj}));
-    return links.reduce((updatedLinks, link, i) => {
-      if(link.meta.updated) {
-        delete link.meta.updated;
-        updatedLinks.push(link);
-      } else if(link.meta.delete) {
-        updatedLinks.push(link);
-      }
-      return updatedLinks;
-    }, [])
+    return links.reduce((updatedLinks, link) => link.meta.updated ? updatedLinks.concat(link) : updatedLinks, [])
   }
 
-  // pass to update link
+  //updates link in state based on params
   updateLink (link, updatedData, linkProperty) {
-    const linkId = link.id
-    const update = {meta: {updated: true, key: link.meta.key}}
-    update[linkProperty] = linkProperty === 'link' ? encodeURIComponent(updatedData) : updatedData;
+    const linkId = link.id;
+    const update = {meta: {...link.meta, updated: true}};
+    update[linkProperty] = updatedData;
     const links = this.state.links.map(linkObj => (
       linkObj.id === linkId ? new linkModel(Object.assign({}, linkObj, update)) : linkObj ));
-    this.setState({links});
+    this.setState({links, updated: true});
+  }
+
+  updateLinkProperty (link, updatedData) {
+    this.updateLink(link, encodeURIComponent(updatedData), 'link');
+  }
+
+  updateTitleProperty (linkId, linkKey, updatedData) {
+    this.updateLink(linkId, linkKey, updatedData, 'title');
+  }
+
+  updateOrderProperty (linkId, linkKey, updatedData) {
+    this.updateLink(linkId, linkKey, updatedData, 'order');
+  }
+
+  updateImageProperty (linkId, linkKey, updatedData) {
+    this.updateLink(linkId, linkKey, updatedData, 'image');
   }
 
   // listen to updates on props.links and add update state
   resetStateLinksFromProps (prevLinks = [] ) {
     const links = this.props.links;
-    for(let i = 0; i < links.length; i++) {
-      if(links.length !== prevLinks.length || links[i] !== prevLinks[i] || links[i].title !== prevLinks[i].title || links[i].image !== prevLinks[i].image || links[i].link !==prevLinks[i].link) {
-        const newLinks = links.map(linkObj => new linkModel({...linkObj}))
-        this.setState({links: newLinks, deleteLinks: []});
-        return;
-      }
+    if(links.length !== prevLinks.length || JSON.stringify(prevLinks) !== JSON.stringify(links)) {
+      const newLinks = links.map(linkObj => new linkModel(deepClone(linkObj)));
+      this.setState({links: newLinks, deleteLinks: [], updated: false});
     }
   }
 
@@ -117,7 +126,10 @@ class EditLinks extends React.Component {
         cancelLinkChanges={this.cancelLinkChanges}
         deleteLink={this.deleteLink}
         links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
-        updateLink={this.updateLink}
+        updateLinkProperty={this.updateLinkProperty}
+        updateImageProperty={this.updateImageProperty}
+        updateOrderProperty={this.updateOrderProperty}
+        updateTitleProperty={this.updateTitleProperty}
         saveChanges={this.saveUpdatedLinks}
         newLink={this.newLink}
       />

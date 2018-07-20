@@ -18,7 +18,7 @@ const EditLinksModal = (props) => {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.cancelLinkChanges}>Cancel</button>
-              <button type="button" className="btn btn-primary" onClick={props.saveChanges} >Save changes</button>
+              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={props.saveChanges} >Save changes</button>
             </div>
           </div>
         </div>
