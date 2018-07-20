@@ -1,0 +1,24 @@
+.clickable {
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: red;
+}
+
+.add-icon {
+  color: green;
+}
+
+.edit-icon:hover {
+  color: yellow;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.display-inline {
+  display: inline;
+  margin: 20%;
+}

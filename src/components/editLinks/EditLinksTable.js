@@ -1,4 +1,7 @@
 import React from 'react';
+import EditRow from './EditRow';
+import DisplayRow from './DisplayRow';
+import styles from './EditLinks.css';
 
 const EditLinksTable = (props) => {
   const links = props.links;
@@ -14,30 +17,11 @@ const EditLinksTable = (props) => {
       </thead>
       <tbody>
         {links.map((link, i) => {
-          return <tr key={i}>
-            <td>
-              <input onChange={(e) => {props.updateOrderProperty(link, e.target.value, 'order')}} value={link.order}>
-              </input>
-            </td>
-            <td>
-              <input onChange={(e) => {props.updateTitleProperty(link, e.target.value, 'title')}} value={link.title}>
-              </input>
-            </td>
-            <td>
-              <input onChange={(e) => {props.updateLinkProperty(link, e.target.value, 'link')}} value={decodeURIComponent(link.link)}>
-              </input>
-            </td>
-            <td>
-              <input onChange={(e) => {props.updateImageProperty(link, e.target.value, 'image')}} value={link.image}>
-              </input>
-            </td>
-            <td>
-              <p onClick={(e) => {props.deleteLink(link)}}> delete
-              </p>
-            </td>
-          </tr>
+          return link.id === props.editId ?
+            <EditRow {...props} link={link} key={i}/> : 
+            <DisplayRow editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
         })}
-        <tr><td><button onClick={props.newLink} >new link</button></td></tr>
+        <tr><td className={'left-align'}><i title={'add new link'} className={'fa fa-plus-circle fa-lg clickable add-icon'} onClick={props.newLink} ></i></td></tr>
       </tbody>
     </table>
   )

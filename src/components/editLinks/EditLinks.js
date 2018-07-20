@@ -22,8 +22,11 @@ class EditLinks extends React.Component {
     this.state = {
       links: [],
       deleteLinks: [],
+      editId: undefined,
     };
     this.cancelLinkChanges = this.cancelLinkChanges.bind(this);
+    this.cancelSingleLinkChange = this.cancelSingleLinkChange.bind(this);
+    this.editLink = this.editLink.bind(this);
     this.deleteLink = this.deleteLink.bind(this);
     this.getUpdatedLinks = this.getUpdatedLinks.bind(this);
     this.newLink = this.newLink.bind(this);
@@ -40,6 +43,12 @@ class EditLinks extends React.Component {
     this.resetStateLinksFromProps();
   }
 
+  cancelSingleLinkChange(linkId) {
+    const newLink = this.props.links.find(propLink => propLink.id === linkId);
+    const links = this.state.links.map(stateLink => stateLink.id === linkId ? deepClone(newLink) : stateLink);
+    this.setState({links, editId: undefined});
+  }
+
   componentDidMount() {
     this.resetStateLinksFromProps();
   }
@@ -48,13 +57,11 @@ class EditLinks extends React.Component {
     this.resetStateLinksFromProps(prevProps.lastFetch);
   }
 
-  newLink() {
-    const links = [...this.state.links];
-    const newLink = new linkModel({title: '', link: '', image: ''})
-    newLink.tags.push('Daugherty');
-    links.push(newLink);
-    this.setState(({links}));
+  // save linkId to display link in edit mode
+  editLink(linkId) {
+    this.setState({editId: linkId});
   }
+
 
   // given a link model, remove from links in state and add it to deleteLinks if has key
   deleteLink (link) {
@@ -75,6 +82,15 @@ class EditLinks extends React.Component {
   getUpdatedLinks() {
     const links = this.state.links.map(linkObj => new linkModel({...linkObj}));
     return links.reduce((updatedLinks, link) => link.meta.updated ? updatedLinks.concat(link) : updatedLinks, [])
+  }
+
+
+  newLink() {
+    const links = [...this.state.links];
+    const newLink = new linkModel({title: '', link: '', image: ''})
+    newLink.tags.push('Daugherty');
+    links.push(newLink);
+    this.setState(({links, editId: newLink.id}));
   }
 
   //updates link in state based on params
@@ -108,7 +124,7 @@ class EditLinks extends React.Component {
     const links = this.props.links;
     if(this.props.lastFetch !== prevLastFetch) {
       const newLinks = links.map(linkObj => new linkModel(deepClone(linkObj)));
-      this.setState({links: newLinks, deleteLinks: []});
+      this.setState({links: newLinks, deleteLinks: [], editId: undefined});
     }
   }
 
@@ -124,6 +140,9 @@ class EditLinks extends React.Component {
     return (
       <EditLinksModal
         cancelLinkChanges={this.cancelLinkChanges}
+        cancelSingleLinkChange={this.cancelSingleLinkChange}
+        editId={this.state.editId}
+        editLink={this.editLink}
         deleteLink={this.deleteLink}
         links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
         updateLinkProperty={this.updateLinkProperty}
