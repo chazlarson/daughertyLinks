@@ -4,11 +4,13 @@ import Links from './Links';
 import Login from './Login';
 import StatusBar from '../components/statusbar';
 import GoogleAdmin from '../components/GoogleAdmin';
+import EditLinks from './editLinks/EditLinks';
 
 class Wrapper extends Component {
     render() {
         return (
             <div className="wrapper ">
+              {this.props.tabs.selectedTab === 'Daugherty' && <EditLinks links={this.props.daughertyLinks} lastFetch={this.props.lastFetch}/>}
     <div className="sidebar" data-color="danger" data-background-color="white" data-image="../assets/img/sidebar-3.jpg">
       <div className="sidebar-wrapper">
       <Tabs links={this.props.links}
@@ -51,8 +53,7 @@ class Wrapper extends Component {
       </nav>
       <div className="content">
         <div className="container-fluid">
-        <Links links={this.props.links} 
-                               tabs={this.props.tabs} />
+        <Links links={this.props.links} tabs={this.props.tabs} />
         </div>
       </div>
       <footer className="footer">
@@ -65,6 +66,7 @@ class Wrapper extends Component {
         </div>
       </footer>
     </div>
+
   </div>
         );
     }

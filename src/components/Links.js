@@ -59,7 +59,6 @@ class Links extends Component {
         )
         return ( 
             <div>
-                {this.props.tabs.selectedTab === 'Daugherty' && <EditLinks links={selectedLinks} />}
                 <div className="row">
                     {linksArray}
                 </div>

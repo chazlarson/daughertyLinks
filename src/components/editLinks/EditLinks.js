@@ -45,8 +45,7 @@ class EditLinks extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // TODO: check props compared to state!
-    this.resetStateLinksFromProps(prevProps.links);
+    this.resetStateLinksFromProps(prevProps.lastFetch);
   }
 
   newLink() {
@@ -105,15 +104,16 @@ class EditLinks extends React.Component {
   }
 
   // listen to updates on props.links and add update state
-  resetStateLinksFromProps (prevLinks = [] ) {
+  resetStateLinksFromProps (prevLastFetch = 0 ) {
     const links = this.props.links;
-    if(links.length !== prevLinks.length || JSON.stringify(prevLinks) !== JSON.stringify(links)) {
+    if(this.props.lastFetch !== prevLastFetch) {
       const newLinks = links.map(linkObj => new linkModel(deepClone(linkObj)));
-      this.setState({links: newLinks, deleteLinks: [], updated: false});
+      this.setState({links: newLinks, deleteLinks: []});
     }
   }
 
   saveUpdatedLinks () {
+    // TODO: validate form data
     const updatedLinks = this.getUpdatedLinks().concat(this.state.deleteLinks);
     console.log(updatedLinks);
     this.props.updateLinks(updatedLinks);

@@ -12,7 +12,9 @@ import {getLinks, initialize, signIn} from './actions/firebase.actions';
 function mapStateToProps(state) {
   return {
     links: state.links,
-    tabs: state.tabs
+    tabs: state.tabs,
+    lastFetch: state.firebase.lastFetch,
+    daughertyLinks: state.firebase.firebaseLinks,
   };
 }
 
@@ -44,9 +46,11 @@ class App extends Component {
     return (
       <div className="App">
         <Wrapper links={this.props.links} 
+                 daughertyLinks ={this.props.daughertyLinks}
                  tabs={this.props.tabs} 
                  updateSelectedTab={this.props.updateSelectedTab}
                  cookies={this.state.cookies}
+                 lastFetch={this.props.lastFetch}
         />
       </div>
     );

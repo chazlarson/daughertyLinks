@@ -16,7 +16,6 @@ const EditLinksTable = (props) => {
         {links.map((link, i) => {
           return <tr key={i}>
             <td>
-              {/* {i + 1} */}
               <input onChange={(e) => {props.updateOrderProperty(link, e.target.value, 'order')}} value={link.order}>
               </input>
             </td>
