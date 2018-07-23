@@ -3,12 +3,6 @@
   color: green;
 }
 
-
-.bg-green {
-  color: white;
-  background-color: green;
-}
-
 #challengeDeleteModal {
   z-index: 2000;
 }
