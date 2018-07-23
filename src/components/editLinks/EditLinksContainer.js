@@ -8,7 +8,8 @@ import { deepClone } from '../../helpers/utilities.helper';
 import ChallengeDeleteModal from './ChallengeDeleteModal';
 
 function mapStateToProps(state) {
-  return {};
+  return {
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -17,7 +18,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-class EditLinks extends React.Component {
+class EditLinksContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,13 +44,19 @@ class EditLinks extends React.Component {
   }
 
   cancelLinkChanges() {
+    // TODO: link back to home
     this.resetStateLinksFromProps();
   }
 
   cancelSingleLinkChange(linkId) {
+    // check for meta.key
     const newLink = this.props.links.find(propLink => propLink.id === linkId);
-    const links = this.state.links.map(stateLink => stateLink.id === linkId ? deepClone(newLink) : stateLink);
-    this.setState({links, editId: undefined});
+    if(!newLink) {
+      this.deleteLink({id: linkId});
+    } else {
+      const links = this.state.links.map(stateLink => stateLink.id === linkId ? deepClone(newLink) : stateLink);
+      this.setState({links, editId: undefined});
+    }
   }
 
   componentDidMount() {
@@ -74,7 +81,7 @@ class EditLinks extends React.Component {
   deleteLink (link) {
     const links = this.state.links.filter(({id}) => link.id !== id);
     const newState = {linkToDelete: null, links};
-    if(link.meta.key !== undefined) {
+    if(!link.meta || link.meta.key !== undefined) {
       const deletedLink = new linkModel(deepClone(link));
       const {deleteLinks} = this.state;
       deletedLink.meta.delete = true;
@@ -85,7 +92,7 @@ class EditLinks extends React.Component {
     this.setState(newState);
   }
   
-  // return only updated links in an array
+  // return only updated links in an array (firebase)
   getUpdatedLinks() {
     const links = this.state.links.map(linkObj => new linkModel({...linkObj}));
     return links.reduce((updatedLinks, link) => link.meta.updated ? updatedLinks.concat(link) : updatedLinks, [])
@@ -137,6 +144,7 @@ class EditLinks extends React.Component {
 
   saveUpdatedLinks () {
     // TODO: validate form data
+    // TODO: link back to home
     const updatedLinks = this.getUpdatedLinks().concat(this.state.deleteLinks);
     console.log(updatedLinks);
     this.props.updateLinks(updatedLinks);
@@ -169,4 +177,4 @@ class EditLinks extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditLinks);
+export default connect(mapStateToProps, mapDispatchToProps)(EditLinksContainer);

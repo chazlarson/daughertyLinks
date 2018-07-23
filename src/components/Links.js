@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {UNCATEGORIZED_TAB} from './Tabs'
-import EditLinks from './editLinks/EditLinks';
 
 class Links extends Component {
     substituteTitle (title, domain = true, maxLen = 40) {

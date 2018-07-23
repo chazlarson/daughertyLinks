@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signIn, signOut, checkAdmin } from '../actions/firebase.actions'
+import { Link } from 'react-router-dom';
 
 
 function mapStateToProps(state) {
@@ -51,8 +52,10 @@ class GoogleAdmin extends Component {
         let editLink = null;
         if(this.props.isAdmin){
             editLink = (
-                <span className="dropdown-item nav-clickable" title="Edit Links" data-toggle="modal" data-target="#editLinksModal">
-                    Edit Links
+                <span className="dropdown-item nav-clickable" title="Edit Links">
+                    <Link
+                        to={'/editLinks'}
+                    >Edit Links</Link>
                 </span>
             )
         }
