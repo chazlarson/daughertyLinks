@@ -1,20 +1,85 @@
-import React, { Component } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Home from "./components/Home";
+import React, { Component } from 'react';
+import Wrapper from './components/Wrapper.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getDaughertyLinks } from './actions/daugherty-links.actions';
+import { updateSelectedTab } from './actions/tabs.action';
+import { withCookies } from 'react-cookie';
+import 'airbnb-js-shims';
+import {getLinks, initialize, signIn} from './actions/firebase.actions';
+import { BrowserRouter as Router, Route} from "react-router-dom";
 import Close from "./components/Close";
+import EditLinksContainer from "./components/editLinks/EditLinksContainer";
+import createBrowserHistory from 'history/createBrowserHistory';
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/close" component={Close} />
-        </div>
-      </Router>
-    );
-  }
+const history = createBrowserHistory();
+
+function mapStateToProps(state) {
+  return {
+    links: state.links,
+    tabs: state.tabs,
+    lastFetch: state.firebase.lastFetch,
+    daughertyLinks: state.firebase.firebaseLinks,
+  };
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return { 
+    getDaughertyLinks: bindActionCreators(getDaughertyLinks, dispatch),
+    updateSelectedTab:  bindActionCreators(updateSelectedTab, dispatch),
+    getFirebaseLinks: bindActionCreators(getLinks, dispatch),
+    initializeFirebase: bindActionCreators(initialize, dispatch),
+    firebaseSignIn: bindActionCreators(signIn, dispatch)
+  };
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cookies: this.props.cookies,
+    };
+  }
+
+  componentWillMount(){
+    //this.props.getDaughertyLinks();
+    this.props.initializeFirebase();
+    this.props.getFirebaseLinks();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Router history={history}>
+          <div>
+            <Route exact path="/" 
+              render = {props =>
+                <Wrapper 
+                  {...props}
+                  links={this.props.links} 
+                  daughertyLinks ={this.props.daughertyLinks}
+                  tabs={this.props.tabs} 
+                  updateSelectedTab={this.props.updateSelectedTab}
+                  cookies={this.state.cookies}
+                  lastFetch={this.props.lastFetch}
+              />}
+            />
+            <Route path="/close" component={Close} />
+            <Route path="/editLinks"
+              component={(props) =>(
+                <EditLinksContainer
+                  {...props}
+                  links={this.props.daughertyLinks}
+                  lastFetch={this.props.lastFetch}
+                /> )
+              }
+            />
+          </div>
+        </Router>
+
+      </div>
+    );
+  }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(App));
