@@ -1,30 +1,15 @@
 import React from 'react';
 import EditLinksTable from './EditLinksTable';
+import {withRouter} from 'react-router';
 
+// TODO: fix from being modal to being page
 const EditLinksModal = (props) => {
     return (
-      <div>
-      <div className="modal fade" id="editLinksModal" tabIndex="-1" role="dialog" aria-labelledby="editLinksModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-table" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="editLinksModalLabel">Edit Links</h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <EditLinksTable {...props}/>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.cancelLinkChanges}>Cancel</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={props.saveChanges} >Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>)
+      <div className={'edit-links-modal'}>
+        <i className={'fa-2x clickable fa fa-arrow-circle-o-left green'} onClick={() => this.props.history.goBack()} title="back"></i>
+        <EditLinksTable {...props}/>
+      </div>)
   }
 
 
-export default EditLinksModal;
+export default withRouter(EditLinksModal);

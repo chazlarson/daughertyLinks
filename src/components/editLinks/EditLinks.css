@@ -3,6 +3,12 @@
   color: green;
 }
 
+
+.bg-green {
+  color: white;
+  background-color: green;
+}
+
 #challengeDeleteModal {
   z-index: 2000;
 }
@@ -27,13 +33,25 @@
 }
 
 
-#editLinksModal {
-  z-index: 1999;
-  overflow-y: auto;
+.edit-links-table {
+  width: 70% !important; 
+  margin: auto !important;
+}
+
+.flat-right {
+  float: right;
+}
+
+.green {
+  color: green;
 }
 
 .left-align {
   text-align: left;
+}
+
+.right-align {
+  text-align: right;
 }
 
 

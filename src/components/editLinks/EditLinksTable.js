@@ -6,24 +6,30 @@ import styles from './EditLinks.css';
 const EditLinksTable = (props) => {
   const links = props.links;
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">title</th>
-          <th scope="col">link</th>
-          <th scope="col">image</th>
-        </tr>
-      </thead>
-      <tbody>
-        {links.map((link, i) => {
-          return link.id === props.editId ?
-            <EditRow {...props} link={link} key={i}/> : 
-            <DisplayRow editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
-        })}
-        <tr><td className={'left-align'}><i title={'add new link'} className={'fa fa-plus-circle fa-lg clickable add-icon'} onClick={props.newLink} ></i></td></tr>
-      </tbody>
-    </table>
+    <div className={"edit-links-table"}>
+      <table className={"table"}>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">title</th>
+            <th scope="col">link</th>
+            <th scope="col">image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {links.map((link, i) => {
+            return link.id === props.editId ?
+              <EditRow {...props} link={link} key={i}/> : 
+              <DisplayRow editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
+          })}
+        </tbody>
+      </table>
+      <i title={'add new link'} className={'fa fa-plus-circle fa-lg clickable add-icon'} onClick={props.newLink} ></i>
+      <span className={"right-align"}>
+        <button type="button" className="btn btn-secondary float-right" data-dismiss="modal" onClick={props.cancelLinkChanges}>Cancel</button>
+        <button type="button" className="btn btn-primary float-right" data-dismiss="modal" onClick={props.saveChanges} >Save!</button>
+      </span>
+    </div>
   )
 }
 
