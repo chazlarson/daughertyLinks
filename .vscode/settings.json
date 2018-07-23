@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b6394f0f-186f-4c54-aff1-1496732aac09/resourceGroups/daughertytest/providers/Microsoft.Web/sites/daughertylinks",
+    "appService.deploySubpath": "build"
+}
