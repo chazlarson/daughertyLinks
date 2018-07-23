@@ -5,6 +5,7 @@ import * as fireBaseActions from '../../actions/firebase.actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { deepClone } from '../../helpers/utilities.helper';
+import ChallengeDeleteModal from './ChallengeDeleteModal';
 
 function mapStateToProps(state) {
   return {};
@@ -23,11 +24,13 @@ class EditLinks extends React.Component {
       links: [],
       deleteLinks: [],
       editId: undefined,
+      linkToDelete: null,
     };
     this.cancelLinkChanges = this.cancelLinkChanges.bind(this);
     this.cancelSingleLinkChange = this.cancelSingleLinkChange.bind(this);
     this.editLink = this.editLink.bind(this);
     this.deleteLink = this.deleteLink.bind(this);
+    this.deleteLinkChallenge = this.deleteLinkChallenge.bind(this);
     this.getUpdatedLinks = this.getUpdatedLinks.bind(this);
     this.newLink = this.newLink.bind(this);
     this.resetStateLinksFromProps = this.resetStateLinksFromProps.bind(this);
@@ -62,11 +65,15 @@ class EditLinks extends React.Component {
     this.setState({editId: linkId});
   }
 
+  deleteLinkChallenge (link) {
+    const linkToDelete = deepClone(link);
+    this.setState({linkToDelete});
+  }
 
   // given a link model, remove from links in state and add it to deleteLinks if has key
   deleteLink (link) {
     const links = this.state.links.filter(({id}) => link.id !== id);
-    const newState = {updated: true, links};
+    const newState = {linkToDelete: null, links};
     if(link.meta.key !== undefined) {
       const deletedLink = new linkModel(deepClone(link));
       const {deleteLinks} = this.state;
@@ -100,7 +107,7 @@ class EditLinks extends React.Component {
     update[linkProperty] = updatedData;
     const links = this.state.links.map(linkObj => (
       linkObj.id === linkId ? new linkModel(Object.assign({}, linkObj, update)) : linkObj ));
-    this.setState({links, updated: true});
+    this.setState({links});
   }
 
   updateLinkProperty (link, updatedData) {
@@ -138,20 +145,26 @@ class EditLinks extends React.Component {
 
   render() {
     return (
-      <EditLinksModal
-        cancelLinkChanges={this.cancelLinkChanges}
-        cancelSingleLinkChange={this.cancelSingleLinkChange}
-        editId={this.state.editId}
-        editLink={this.editLink}
-        deleteLink={this.deleteLink}
-        links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
-        updateLinkProperty={this.updateLinkProperty}
-        updateImageProperty={this.updateImageProperty}
-        updateOrderProperty={this.updateOrderProperty}
-        updateTitleProperty={this.updateTitleProperty}
-        saveChanges={this.saveUpdatedLinks}
-        newLink={this.newLink}
-      />
+      <div>
+        <ChallengeDeleteModal
+          link={this.state.linkToDelete}
+          deleteLink={this.deleteLink}
+        />
+        <EditLinksModal
+          cancelLinkChanges={this.cancelLinkChanges}
+          cancelSingleLinkChange={this.cancelSingleLinkChange}
+          editId={this.state.editId}
+          editLink={this.editLink}
+          deleteLink={this.deleteLinkChallenge}
+          links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
+          updateLinkProperty={this.updateLinkProperty}
+          updateImageProperty={this.updateImageProperty}
+          updateOrderProperty={this.updateOrderProperty}
+          updateTitleProperty={this.updateTitleProperty}
+          saveChanges={this.saveUpdatedLinks}
+          newLink={this.newLink}
+        />
+      </div>
   )
   }
 }

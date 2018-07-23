@@ -1,24 +1,39 @@
-.clickable {
-  cursor: pointer;
-}
-
-.delete-icon:hover {
-  color: red;
-}
 
 .add-icon {
   color: green;
 }
 
-.edit-icon:hover {
-  color: yellow;
+#challengeDeleteModal {
+  z-index: 2000;
 }
 
-.left-align {
-  text-align: left;
+.clickable {
+  cursor: pointer;
+}
+
+
+.delete-icon:hover {
+  color: red;
 }
 
 .display-inline {
   display: inline;
   margin: 20%;
 }
+
+
+.edit-icon:hover {
+  color: yellow;
+}
+
+
+#editLinksModal {
+  z-index: 1999;
+  overflow-y: auto;
+}
+
+.left-align {
+  text-align: left;
+}
+
+
