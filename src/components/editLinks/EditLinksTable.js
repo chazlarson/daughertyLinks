@@ -26,8 +26,8 @@ const EditLinksTable = (props) => {
       </table>
       <i title={'add new link'} className={'fa fa-plus-circle fa-lg clickable add-icon'} onClick={props.newLink} ></i>
       <span className={"right-align"}>
-        <button type="button" className="btn btn-secondary float-right" data-dismiss="modal" onClick={props.cancelLinkChanges}>Cancel</button>
-        <button type="button" className="btn btn-primary float-right" data-dismiss="modal" onClick={props.saveChanges} >Save!</button>
+        <button type="button" className="btn btn-primary float-right" onClick={props.saveChanges} >Save!</button>
+        <button type="button" className="btn btn-secondary float-right" onClick={props.cancelLinkChanges}>Cancel</button>
       </span>
     </div>
   )
