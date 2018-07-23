@@ -4,6 +4,7 @@ import { filterFiles} from '../helpers/file-extension.helper';
 import { updateStatusMessage } from './tabs.action';
 import {UPDATE_LINKS} from '../reducers';
 import { updateSelectedTab } from './tabs.action';
+import {pathInfo} from '../helpers/utilities.helper';
 
 export const POCKET_REQUEST_TOKEN_LOADING ='POCKET_REQUEST_TOKEN_LOADING';
 export const POCKET_REQUEST_TOKEN_ERROR ='POCKET_REQUEST_TOKEN_ERROR';
@@ -119,7 +120,7 @@ export function getPocketRequest() {
         })
         .then(res => {
           dispatch(pocketRequestSuccess(res.code))
-          var win = window.open(pocketServices.pocketReroute(res.code, 'http://localhost:3000/close.html') , "SignIn", "");
+          var win = window.open(pocketServices.pocketReroute(res.code, `${pathInfo.domainPath()}/close`) , "SignIn", "");
           var pollTimer = window.setInterval(function() {
             if (!win) {
                 dispatch(alertPopUpBlocked())
