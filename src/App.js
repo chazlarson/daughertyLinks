@@ -55,7 +55,7 @@ class App extends Component {
         <Router history={history}>
           <Switch>
               <Route exact path="/" 
-                render = {props =>
+                render={props =>
                   <Wrapper 
                     {...props}
                     links={this.props.links} 
@@ -68,7 +68,7 @@ class App extends Component {
               />
               <Route path="/close" component={Close} />
               <Route path="/editLinks"
-                component={(props) =>(
+                render={(props) =>(
                   <EditLinksContainer
                     {...props}
                     links={this.props.daughertyLinks}
