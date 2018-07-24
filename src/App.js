@@ -54,7 +54,6 @@ class App extends Component {
       <div className="App">
         <Router history={history}>
           <Switch>
-            <div>
               <Route exact path="/" 
                 render = {props =>
                   <Wrapper 
@@ -77,7 +76,7 @@ class App extends Component {
                   /> )
                 }
               />
-            </div>
+              <Route component={NoMatch} />
           </Switch>
         </Router>
       </div>
