@@ -1,5 +1,5 @@
 import React from 'react';
-import EditLinksModal from './EditLinksModal';
+import EditLinksComponent from './EditLinksComponent';
 import linkModel from '../../models/link';
 import * as fireBaseActions from '../../actions/firebase.actions';
 import {connect} from 'react-redux';
@@ -34,6 +34,7 @@ class EditLinksContainer extends React.Component {
     this.deleteLinkChallenge = this.deleteLinkChallenge.bind(this);
     this.getUpdatedLinks = this.getUpdatedLinks.bind(this);
     this.newLink = this.newLink.bind(this);
+    this.orderLinks = this.orderLinks.bind(this);
     this.resetStateLinksFromProps = this.resetStateLinksFromProps.bind(this);
     this.saveUpdatedLinks = this.saveUpdatedLinks.bind(this);
     this.updateLink = this.updateLink.bind(this);
@@ -72,6 +73,7 @@ class EditLinksContainer extends React.Component {
     this.setState({editId: linkId});
   }
 
+  // save link to delete to be used by modal to challenge
   deleteLinkChallenge (link) {
     const linkToDelete = deepClone(link);
     this.setState({linkToDelete});
@@ -101,10 +103,20 @@ class EditLinksContainer extends React.Component {
 
   newLink() {
     const links = [...this.state.links];
-    const newLink = new linkModel({title: '', link: '', image: ''})
+    const newLink = new linkModel({title: '', link: '', image: '', order: links.length})
     newLink.tags.push('Daugherty');
     links.push(newLink);
     this.setState(({links, editId: newLink.id}));
+  }
+
+  orderLinks(links = this.state.links) {
+    return [...links]
+      .sort((a, b) => a.order - b.order)
+      .map((link, i) => {
+        const newLink = new linkModel(deepClone(link));
+        newLink.order = i;
+        return newLink;
+      })
   }
 
   //updates link in state based on params
@@ -137,7 +149,7 @@ class EditLinksContainer extends React.Component {
   resetStateLinksFromProps (prevLastFetch = 0 ) {
     const links = this.props.links;
     if(this.props.lastFetch !== prevLastFetch) {
-      const newLinks = links.map(linkObj => new linkModel(deepClone(linkObj)));
+      const newLinks = this.orderLinks(links);
       this.setState({links: newLinks, deleteLinks: [], editId: undefined});
     }
   }
@@ -158,13 +170,13 @@ class EditLinksContainer extends React.Component {
           link={this.state.linkToDelete}
           deleteLink={this.deleteLink}
         />
-        <EditLinksModal
+        <EditLinksComponent
           cancelLinkChanges={this.cancelLinkChanges}
           cancelSingleLinkChange={this.cancelSingleLinkChange}
           editId={this.state.editId}
           editLink={this.editLink}
           deleteLink={this.deleteLinkChallenge}
-          links={this.state.links.filter(link => !link.meta.delete).sort((a, b) => a.order - b.order)}
+          links={this.state.links}
           updateLinkProperty={this.updateLinkProperty}
           updateImageProperty={this.updateImageProperty}
           updateOrderProperty={this.updateOrderProperty}
