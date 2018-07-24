@@ -13,7 +13,7 @@ const ChallengeDeleteModal = (props) => {
             </button>
           </div>
           <div className="modal-body">
-            <p>Are you sure you want to delete this link: {JSON.stringify(props.link)}? (It can still be undone by canceling changes).</p>
+            <p>Are you sure you want to delete the link to {props.link && props.link.title || 'no title'}? (It can still be undone by canceling changes).</p>
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => props.deleteLink(props.link)} >Yes, Delete!</button>
