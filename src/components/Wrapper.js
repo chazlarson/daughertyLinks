@@ -36,7 +36,7 @@ class Wrapper extends Component {
                   <i className="material-icons" id="pocket-closed">arrow_drop_down_circle</i>
                   <i className="material-icons" id="pocket-open">arrow_drop_up</i>
                   <p className="d-lg-none d-md-block">
-                    Pocket
+                    Menu
                   </p>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"  data-color="danger">
