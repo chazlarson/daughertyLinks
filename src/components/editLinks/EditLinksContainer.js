@@ -45,7 +45,6 @@ class EditLinksContainer extends React.Component {
   }
 
   cancelLinkChanges() {
-    // TODO: link back to home
     this.resetStateLinksFromProps();
   }
 
@@ -110,9 +109,9 @@ class EditLinksContainer extends React.Component {
   }
 
   orderLinks(links = this.state.links) {
-    return [...links]
-      .sort((a, b) => a.order - b.order)
-      .map((link, i) => {
+    const arr =  [...links]
+      .sort((a, b) => a.order - b.order);
+      return arr.map((link, i) => {
         const newLink = new linkModel(deepClone(link));
         newLink.order = i;
         return newLink;
@@ -138,6 +137,7 @@ class EditLinksContainer extends React.Component {
   }
 
   updateOrderProperty (linkId, linkKey, updatedData) {
+    // TODO: implement drag and drop
     this.updateLink(linkId, linkKey, updatedData, 'order');
   }
 
@@ -156,7 +156,6 @@ class EditLinksContainer extends React.Component {
 
   saveUpdatedLinks () {
     // TODO: validate form data
-    // TODO: link back to home
     const updatedLinks = this.getUpdatedLinks().concat(this.state.deleteLinks);
     console.log(updatedLinks);
     this.props.updateLinks(updatedLinks);

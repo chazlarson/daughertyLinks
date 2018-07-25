@@ -15,7 +15,7 @@ const EditLinksTable = (props) => {
             <th scope="col">image</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody droppable="true">
           {links.map((link, i) => {
             return link.id === props.editId ?
               <EditRow {...props} link={link} key={i}/> : 

@@ -4,19 +4,20 @@ const EditRow = (props) => {
   return(
     <tr>
       <td>
-        <input onChange={(e) => {props.updateOrderProperty(props.link, e.target.value, 'order')}} value={props.link.order}>
+        <p onChange={(e) => {props.updateOrderProperty(props.link, e.target.value, 'order')}} value={props.link.order}></p>
+        {/* <input className={'edit-input'} onChange={(e) => {props.updateOrderProperty(props.link, e.target.value, 'order')}} value={props.link.order}> */}
+        {/* </input> */}
+      </td>
+      <td>
+        <input className={'edit-input'} onChange={(e) => {props.updateTitleProperty(props.link, e.target.value, 'title')}} value={props.link.title}>
         </input>
       </td>
       <td>
-        <input onChange={(e) => {props.updateTitleProperty(props.link, e.target.value, 'title')}} value={props.link.title}>
+        <input className={'edit-input'} onChange={(e) => {props.updateLinkProperty(props.link, e.target.value, 'link')}} value={decodeURIComponent(props.link.link)}>
         </input>
       </td>
       <td>
-        <input onChange={(e) => {props.updateLinkProperty(props.link, e.target.value, 'link')}} value={decodeURIComponent(props.link.link)}>
-        </input>
-      </td>
-      <td>
-        <input onChange={(e) => {props.updateImageProperty(props.link, e.target.value, 'image')}} value={props.link.image}>
+        <input className={'edit-input'} onChange={(e) => {props.updateImageProperty(props.link, e.target.value, 'image')}} value={props.link.image}>
         </input>
       </td>
       <td>

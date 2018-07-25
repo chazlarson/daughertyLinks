@@ -26,6 +26,9 @@
   color: yellow;
 }
 
+.edit-input {
+  width: 100%;
+}
 
 .edit-links-table {
   width: 70% !important; 
