@@ -4,7 +4,7 @@ import linkModel from '../../models/link';
 import * as fireBaseActions from '../../actions/firebase.actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { deepClone } from '../../helpers/utilities.helper';
+import { deepClone, shallowClone } from '../../helpers/utilities.helper';
 import ChallengeDeleteModal from './ChallengeDeleteModal';
 
 function mapStateToProps(state) {
@@ -22,15 +22,17 @@ class EditLinksContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      links: [],
       deleteLinks: [],
+      dragLink: null,
       editId: undefined,
+      links: [],
       linkToDelete: null,
     };
     this.cancelLinkChanges = this.cancelLinkChanges.bind(this);
     this.cancelSingleLinkChange = this.cancelSingleLinkChange.bind(this);
     this.editLink = this.editLink.bind(this);
-    this.drag = this.drag.bind(this);
+    this.handleStartDrag = this.handleStartDrag.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
     this.deleteLink = this.deleteLink.bind(this);
     this.deleteLinkChallenge = this.deleteLinkChallenge.bind(this);
     this.getUpdatedLinks = this.getUpdatedLinks.bind(this);
@@ -49,12 +51,13 @@ class EditLinksContainer extends React.Component {
     this.resetStateLinksFromProps();
   }
 
-  cancelSingleLinkChange(linkId) {
+  cancelSingleLinkChange(linkId, order) {
     // check for meta.key
     const newLink = this.props.links.find(propLink => propLink.id === linkId);
     if(!newLink) {
       this.deleteLink({id: linkId});
     } else {
+      newLink.order = order;
       const links = this.state.links.map(stateLink => stateLink.id === linkId ? deepClone(newLink) : stateLink);
       this.setState({links, editId: undefined});
     }
@@ -93,9 +96,6 @@ class EditLinksContainer extends React.Component {
     }
     this.setState(newState);
   }
-
-  drag (e) {
-  }
   
   // return only updated links in an array (firebase)
   getUpdatedLinks() {
@@ -104,11 +104,38 @@ class EditLinksContainer extends React.Component {
   }
 
   handleDragOver (e) {
-    debugger;
+    e.preventDefault();
   }
 
-  handleDrop (e) {
-    debugger;
+  // updates order properties and saves to state
+  // chose to increase runtime by using 2 HOF
+    // increases readability over using multiple conditionals
+  handleDrop (e, targetOrder) {
+    e.preventDefault();
+    const newState = {dragLink: null};
+    if(targetOrder !== undefined) {
+      const {links, dragLink} = this.state;
+      const insertIndex = links.findIndex(link => targetOrder === link.order);
+      // clone links and removed dragged link
+      let updatedLinks = shallowClone(links).filter(({id}) => id !== dragLink.id);
+      //insert dragged link in correct index
+      updatedLinks.splice(insertIndex, 0, dragLink);
+      //update all orders
+      newState.links = updatedLinks.map((link, i) => {
+        if(link.order !== i){
+          const newLink = deepClone(link);
+          newLink.order = i;
+          newLink.meta.updated = true;
+          return newLink;
+        }
+        return link;
+      });
+    }
+    this.setState(newState);
+  }
+
+  handleStartDrag (dragLink) {
+    this.setState({dragLink});
   }
 
 
@@ -184,10 +211,12 @@ class EditLinksContainer extends React.Component {
         <EditLinksComponent
           cancelLinkChanges={this.cancelLinkChanges}
           cancelSingleLinkChange={this.cancelSingleLinkChange}
-          drag={this.drag}
+          drag={this.handleStartDrag}
           editId={this.state.editId}
           editLink={this.editLink}
           deleteLink={this.deleteLinkChallenge}
+          handleDragOver={this.handleDragOver}
+          handleDrop={this.handleDrop}
           links={this.state.links}
           updateLinkProperty={this.updateLinkProperty}
           updateImageProperty={this.updateImageProperty}

@@ -2,11 +2,9 @@ import React from 'react';
 
 const EditRow = (props) => {
   return(
-    <tr>
+    <tr draggable="true" onDragStart={(e) => props.drag(props.link)} onDragOver={props.handleDragOver} onDrop={(e) => props.handleDrop(e, props.link.order)}>
       <td>
-        <p onChange={(e) => {props.updateOrderProperty(props.link, e.target.value, 'order')}} value={props.link.order}></p>
-        {/* <input className={'edit-input'} onChange={(e) => {props.updateOrderProperty(props.link, e.target.value, 'order')}} value={props.link.order}> */}
-        {/* </input> */}
+        <i className="material-icons drag">drag_handle</i>
       </td>
       <td>
         <input className={'edit-input'} onChange={(e) => {props.updateTitleProperty(props.link, e.target.value, 'title')}} value={props.link.title}>
@@ -21,7 +19,7 @@ const EditRow = (props) => {
         </input>
       </td>
       <td>
-        <i className={'clickable delete-icon'} title={'cancel all changes to this link'} onClick={() => {props.cancelSingleLinkChange(props.link.id)}}>X</i>
+        <i className={'clickable delete-icon'} title={'cancel all changes to this link'} onClick={() => {props.cancelSingleLinkChange(props.link.id, props.link.order)}}>X</i>
       </td>
     </tr>
   )
