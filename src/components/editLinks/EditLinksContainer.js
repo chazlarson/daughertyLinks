@@ -30,6 +30,7 @@ class EditLinksContainer extends React.Component {
     this.cancelLinkChanges = this.cancelLinkChanges.bind(this);
     this.cancelSingleLinkChange = this.cancelSingleLinkChange.bind(this);
     this.editLink = this.editLink.bind(this);
+    this.drag = this.drag.bind(this);
     this.deleteLink = this.deleteLink.bind(this);
     this.deleteLinkChallenge = this.deleteLinkChallenge.bind(this);
     this.getUpdatedLinks = this.getUpdatedLinks.bind(this);
@@ -92,11 +93,22 @@ class EditLinksContainer extends React.Component {
     }
     this.setState(newState);
   }
+
+  drag (e) {
+  }
   
   // return only updated links in an array (firebase)
   getUpdatedLinks() {
     const links = this.state.links.map(linkObj => new linkModel({...linkObj}));
     return links.reduce((updatedLinks, link) => link.meta.updated ? updatedLinks.concat(link) : updatedLinks, [])
+  }
+
+  handleDragOver (e) {
+    debugger;
+  }
+
+  handleDrop (e) {
+    debugger;
   }
 
 
@@ -172,6 +184,7 @@ class EditLinksContainer extends React.Component {
         <EditLinksComponent
           cancelLinkChanges={this.cancelLinkChanges}
           cancelSingleLinkChange={this.cancelSingleLinkChange}
+          drag={this.drag}
           editId={this.state.editId}
           editLink={this.editLink}
           deleteLink={this.deleteLinkChallenge}

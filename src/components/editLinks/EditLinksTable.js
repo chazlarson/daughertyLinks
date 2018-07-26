@@ -19,7 +19,7 @@ const EditLinksTable = (props) => {
           {links.map((link, i) => {
             return link.id === props.editId ?
               <EditRow {...props} link={link} key={i}/> : 
-              <DisplayRow editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
+              <DisplayRow drag={props.drag} editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
           })}
         </tbody>
       </table>

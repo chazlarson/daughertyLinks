@@ -2,7 +2,7 @@ import React from 'react';
 
 const DisplayRow = (props) => {
   return(
-    <tr draggable="true">
+    <tr draggable="true" onDragStart={props.drag}>
       <td>
         <p>{props.link.order}</p>
       </td>
