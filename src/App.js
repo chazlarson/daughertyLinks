@@ -10,10 +10,7 @@ import { getLinks, initialize, signIn } from "./actions/firebase.actions";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Close from "./components/Close";
 import EditLinksContainer from "./components/editLinks/EditLinksContainer";
-import createBrowserHistory from "history/createBrowserHistory";
-import NoMatch from "./components/NoMatch";
-
-const history = createBrowserHistory();
+import NoMatch from './components/NoMatch';
 
 function mapStateToProps(state) {
   return {
@@ -51,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Router history={history}>
+        <Router>
           <Switch>
             <Route
               exact

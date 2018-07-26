@@ -15,11 +15,18 @@ const EditLinksTable = (props) => {
             <th scope="col">image</th>
           </tr>
         </thead>
-        <tbody droppable="true">
+        <tbody>
           {links.map((link, i) => {
             return link.id === props.editId ?
               <EditRow {...props} link={link} key={i}/> : 
-              <DisplayRow editLink={props.editLink} deleteLink={props.deleteLink} link={link} key={i}/>
+              <DisplayRow
+                drag={props.drag}
+                handleDragOver={props.handleDragOver}
+                handleDrop={props.handleDrop}
+                editLink={props.editLink}
+                deleteLink={props.deleteLink}
+                link={link}
+                key={i}/>
           })}
         </tbody>
       </table>

@@ -21,9 +21,13 @@
   margin: 20%;
 }
 
+.drag:hover {
+  cursor: grab;
+}
+
 
 .edit-icon:hover {
-  color: yellow;
+  color: orange;
 }
 
 .edit-input {

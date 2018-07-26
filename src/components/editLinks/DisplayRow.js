@@ -2,9 +2,9 @@ import React from 'react';
 
 const DisplayRow = (props) => {
   return(
-    <tr draggable="true">
+    <tr draggable="true" onDragStart={(e) => props.drag(props.link)} onDragOver={props.handleDragOver} onDrop={(e) => props.handleDrop(e, props.link.order)}>
       <td>
-        <p>{props.link.order}</p>
+        <i className="material-icons drag">drag_handle</i>
       </td>
       <td>
         <p>{props.link.title}</p>
